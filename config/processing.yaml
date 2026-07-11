@@ -1,0 +1,27 @@
+# Bounds for on-demand company processing (Feature: live company processing).
+# Keeps a single company's run to a few minutes and controls LLM (Ollama) quota.
+
+# Which filings to pull for a newly-processed company (most recent first).
+# Kept modest so a live run finishes in a few minutes on the Ollama free tier.
+filings:
+  - form: "10-K"
+    limit: 1
+  - form: "10-Q"
+    limit: 2
+
+# Cap chunks sent to the extraction LLM per filing.
+max_chunks_per_doc: 10
+
+# Cap candidate pairs sent to the judgment LLM per company.
+max_detection_pairs: 15
+
+# Discovery: curated "popular" tickers shown on the landing page.
+popular:
+  - AAPL
+  - MSFT
+  - GOOGL
+  - AMZN
+  - META
+  - TSLA
+  - NVDA
+  - AMD

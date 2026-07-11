@@ -1,0 +1,45 @@
+# SYNTHETIC earnings-call excerpt. NOT a real NVIDIA transcript.
+document_id: SYN-2026-Q3-CALL
+doc_type: earnings_call
+date: 2025-11-19
+quarter: Q3 FY2026
+company:
+  ticker: NVDA
+  name: NVIDIA Corporation
+title: NVIDIA Corporation - Q3 Fiscal 2026 Earnings Call
+
+turns:
+  - speaker: Jensen Huang
+    role: President and Chief Executive Officer
+    planted: geographic_customer_concentration  # contradicts FY2026 10-K risk factors
+    text: >-
+      One thing I want to emphasize is how diversified our business has become.
+      Our revenue is broadly spread across thousands of customers around the
+      world, and no single customer or small group of customers represents a
+      meaningful concentration of our sales. That breadth gives us tremendous
+      resilience.
+
+  - speaker: Colette Kress
+    role: Executive Vice President and Chief Financial Officer
+    planted: null                         # benign / aligned with filings
+    text: >-
+      We continued to invest in research and development at record levels this
+      quarter to extend our platform leadership. Our balance sheet remains
+      strong, and we ended the quarter with substantial cash and marketable
+      securities.
+
+  - speaker: Analyst - J.P. Morgan
+    role: Analyst
+    planted: null
+    text: >-
+      Can you comment on the competitive environment? Are you seeing more
+      pressure from custom silicon and other accelerator vendors?
+
+  - speaker: Jensen Huang
+    role: President and Chief Executive Officer
+    planted: null                         # benign / aligned (competition IS intensifying)
+    text: >-
+      Competition in our markets is real and intensifying, with new entrants
+      and custom silicon efforts from several large customers. We welcome it.
+      We believe our full-stack platform and pace of innovation keep us ahead,
+      but we never take our position for granted.

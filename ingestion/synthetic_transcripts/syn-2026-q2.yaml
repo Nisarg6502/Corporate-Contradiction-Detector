@@ -1,0 +1,44 @@
+# SYNTHETIC earnings-call excerpt. NOT a real NVIDIA transcript.
+document_id: SYN-2026-Q2-CALL
+doc_type: earnings_call
+date: 2025-08-27
+quarter: Q2 FY2026
+company:
+  ticker: NVDA
+  name: NVIDIA Corporation
+title: NVIDIA Corporation - Q2 Fiscal 2026 Earnings Call
+
+turns:
+  - speaker: Jensen Huang
+    role: President and Chief Executive Officer
+    planted: regulatory_legal_risk        # contradicts FY2026 10-K risk factors
+    text: >-
+      Let me address export controls directly, because I know it is on
+      everyone's mind. These controls have had no material impact on our
+      business, and we do not expect any current or future licensing
+      requirements to be material to our results. China remains fully
+      accessible to us, and we see no meaningful risk to our operations there.
+
+  - speaker: Colette Kress
+    role: Executive Vice President and Chief Financial Officer
+    planted: null                         # benign / aligned with filings
+    text: >-
+      On capital returns, we continued to return capital to shareholders
+      aggressively this quarter, repurchasing shares under our expanded
+      board authorization. We remain committed to a balanced capital
+      allocation program alongside our ongoing investments in the business.
+
+  - speaker: Analyst - Goldman Sachs
+    role: Analyst
+    planted: null
+    text: >-
+      On operating expenses, how should we think about the pace of investment
+      in research and development going forward?
+
+  - speaker: Colette Kress
+    role: Executive Vice President and Chief Financial Officer
+    planted: null
+    text: >-
+      We expect operating expenses to grow as we invest in the largest and
+      most complex products in our history, but we will continue to manage
+      spending with discipline relative to revenue growth.

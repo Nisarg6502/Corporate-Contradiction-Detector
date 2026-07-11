@@ -1,0 +1,35 @@
+# Corporate Contradiction Detector — Python dependencies.
+# Pinned loosely (>=) for v1; tighten before any production use.
+
+# --- Config ---
+PyYAML>=6.0
+
+# --- LLM ---
+anthropic>=0.40.0
+
+# --- EDGAR ingestion (Checkpoint 1) ---
+edgartools>=3.0.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# --- Synthetic PDF path (Checkpoint 2) ---
+PyMuPDF>=1.24.0
+
+# --- Graph + vector (Checkpoints 4-6) ---
+neo4j>=5.20.0
+qdrant-client>=1.9.0
+sentence-transformers>=3.0.0
+
+# --- API (Checkpoint 6) ---
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+
+# --- Vector search (Checkpoint 6) ---
+fastembed>=0.3.0
+
+# --- Observability ---
+langfuse>=3.0.0
+
+# --- Tests ---
+pytest>=8.0.0

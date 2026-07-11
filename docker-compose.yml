@@ -1,0 +1,19 @@
+# Docker Compose for self-hosted infrastructure.
+#
+# Neo4j runs separately via Neo4j Desktop on each developer machine (per the
+# build plan), so only Qdrant is defined here for now. The backend service will
+# be added in a later checkpoint once the API exists.
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ccd_qdrant
+    ports:
+      - "${QDRANT_PORT:-6333}:6333"   # REST/HTTP API
+      - "6334:6334"                    # gRPC API
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  qdrant_storage:

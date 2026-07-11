@@ -1,0 +1,74 @@
+# Curated topic list (v1).
+# Claim extraction is constrained to these topics — this is deliberate for a
+# clean, controlled v1 (not open-ended topic discovery). Refine once the final
+# target company is picked (see plan Checkpoint 1).
+#
+# Each topic has:
+#   id:          stable machine key (never change once claims reference it)
+#   name:        canonical display name
+#   description: guidance handed to the extraction LLM to decide topic assignment
+#   aliases:     surface phrases that map to this topic (helps normalization)
+
+topics:
+  - id: revenue_growth_guidance
+    name: Revenue growth / guidance
+    description: >-
+      Forward-looking or historical statements about revenue, sales growth
+      rates, bookings, or financial guidance/outlook figures.
+    aliases: [revenue, sales growth, guidance, outlook, top-line, bookings]
+
+  - id: gross_margin_profitability
+    name: Gross margin / profitability
+    description: >-
+      Statements about gross margin, operating margin, profitability, cost
+      structure, or path to profitability.
+    aliases: [gross margin, operating margin, profitability, margins, cost structure]
+
+  - id: geographic_customer_concentration
+    name: Geographic / customer concentration risk
+    description: >-
+      Statements about dependence on specific regions, countries, or a small
+      number of large customers.
+    aliases: [customer concentration, geographic concentration, key customers, regional exposure]
+
+  - id: supply_chain_risk
+    name: Supply chain risk
+    description: >-
+      Statements about supplier dependence, component availability, logistics,
+      inventory, or manufacturing capacity risk.
+    aliases: [supply chain, suppliers, components, logistics, inventory, manufacturing capacity]
+
+  - id: competitive_positioning
+    name: Competitive positioning
+    description: >-
+      Statements about market share, competitive advantage, differentiation, or
+      the competitive landscape.
+    aliases: [competition, market share, competitive advantage, differentiation, rivals]
+
+  - id: regulatory_legal_risk
+    name: Regulatory / legal risk
+    description: >-
+      Statements about regulation, legal proceedings, compliance, antitrust, or
+      government/policy exposure.
+    aliases: [regulation, legal, litigation, compliance, antitrust, policy]
+
+  - id: headcount_hiring
+    name: Headcount / hiring plans
+    description: >-
+      Statements about employee headcount, hiring plans, layoffs, or workforce
+      strategy.
+    aliases: [headcount, hiring, layoffs, workforce, employees, restructuring]
+
+  - id: capital_allocation
+    name: Capital allocation
+    description: >-
+      Statements about buybacks, dividends, M&A, capex, R&D spend, or use of
+      cash.
+    aliases: [buybacks, dividends, capex, M&A, acquisitions, R&D spend, cash use]
+
+  - id: strategic_pivots
+    name: Strategic pivots
+    description: >-
+      Statements about changes in strategy, entering/exiting markets, product
+      direction shifts, or business model changes.
+    aliases: [strategy shift, pivot, new market, exit market, product direction, business model]

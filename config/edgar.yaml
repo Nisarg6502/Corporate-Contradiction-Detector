@@ -1,0 +1,21 @@
+# EDGAR ingestion settings (Checkpoint 1).
+#
+# The SEC requires a descriptive User-Agent with contact info on every request
+# (see https://www.sec.gov/os/webmaster-faq#developers). edgartools reads this
+# from the EDGAR_IDENTITY env var; set it in your .env.
+
+# Placeholder company for initial testing. Final target company is TBD — change
+# `ticker` here to re-point ingestion without touching pipeline code.
+target_company:
+  ticker: NVDA
+  # cik/name are resolved from EDGAR at ingest time; left blank here on purpose.
+
+filings:
+  # Which filing types to pull and how many of each (most recent first).
+  types:
+    - form: "10-K"
+      limit: 2
+    - form: "10-Q"
+      limit: 4
+    - form: "8-K"
+      limit: 4

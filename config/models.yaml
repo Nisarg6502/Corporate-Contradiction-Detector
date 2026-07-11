@@ -1,0 +1,43 @@
+# LLM model configuration.
+#
+# HARD RULE (from build plan): model IDs are config-driven, never hardcoded in
+# pipeline code. Split usage:
+#   - extraction: high-volume claim extraction  -> Claude Haiku 4.5 (cheap/fast)
+#   - judgment:   low-volume contradiction calls -> Claude Sonnet 5 (stronger)
+#
+# Swap a model by editing the `model` field here; nothing downstream changes.
+
+# Provider registry. Each pipeline role (extraction/judgment) names a provider
+# here, so swapping backends is a one-line change — never hardcoded in code.
+providers:
+  ollama:                       # Ollama Cloud hosted inference (OpenAI-ish)
+    type: ollama
+    host_env: OLLAMA_HOST
+    api_key_env: OLLAMA_API_KEY
+  vertex:                       # Gemini via Vertex AI (needs aiplatform API enabled)
+    type: vertex
+    project_env: GOOGLE_CLOUD_PROJECT
+    location_env: GOOGLE_CLOUD_LOCATION
+
+# High-volume claim extraction. (Swap provider->vertex, model->gemini-2.5-flash
+# once the Vertex AI API is enabled on the GCP project.)
+extraction:
+  provider: ollama
+  model: gpt-oss:120b
+  max_tokens: 8192
+  temperature: 0.0            # deterministic-ish extraction
+  # Number of retries when the quote-span validation guardrail rejects output.
+  max_quote_span_retries: 2
+
+# Low-volume contradiction judgment (stronger reasoning).
+judgment:
+  provider: ollama
+  model: gpt-oss:120b
+  max_tokens: 2048
+  temperature: 0.0
+
+embedding:
+  # Hybrid-search embeddings (Checkpoint 6). FastEmbed = ONNX, CPU-only, no torch.
+  provider: fastembed
+  model: BAAI/bge-small-en-v1.5
+  dimension: 384

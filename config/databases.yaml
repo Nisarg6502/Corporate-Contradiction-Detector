@@ -1,0 +1,23 @@
+# Database connection settings.
+#
+# Values written as ${VAR} or ${VAR:-default} are interpolated from the
+# environment (loaded from .env) at load time by config/__init__.py.
+# Secrets (passwords) MUST come from the environment, not be committed here.
+
+neo4j:
+  # Neo4j Desktop runs locally per developer machine (not in docker-compose).
+  uri: ${NEO4J_URI:-bolt://localhost:7687}
+  user: ${NEO4J_USER:-neo4j}
+  password: ${NEO4J_PASSWORD:-}
+  database: ${NEO4J_DATABASE:-neo4j}
+
+qdrant:
+  # Qdrant Cloud (url + api_key) if QDRANT_URL is set, else self-hosted host:port.
+  url: ${QDRANT_URL:-}
+  api_key: ${QDRANT_API_KEY:-}
+  host: ${QDRANT_HOST:-localhost}
+  port: ${QDRANT_PORT:-6333}
+  # Collection used for topic-phrase embeddings (Checkpoint 4).
+  topic_collection: ${QDRANT_TOPIC_COLLECTION:-topic_embeddings}
+  # Collection used for claim/topic hybrid search (Checkpoint 6).
+  claim_collection: ${QDRANT_CLAIM_COLLECTION:-claim_embeddings}

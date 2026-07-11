@@ -1,0 +1,48 @@
+# SYNTHETIC earnings-call excerpt. NOT a real NVIDIA transcript. Authored for
+# the Corporate Contradiction Detector demo. Speaker turns marked "[PLANTED]"
+# deliberately contradict claims in NVIDIA's real SEC filings.
+document_id: SYN-2026-Q1-CALL
+doc_type: earnings_call
+date: 2025-05-28
+quarter: Q1 FY2026
+company:
+  ticker: NVDA
+  name: NVIDIA Corporation
+title: NVIDIA Corporation - Q1 Fiscal 2026 Earnings Call
+
+turns:
+  - speaker: Colette Kress
+    role: Executive Vice President and Chief Financial Officer
+    planted: gross_margin_profitability   # contradicts FY2026 10-K MD&A
+    text: >-
+      Turning to margins. In the first quarter our gross margin expanded to a
+      record level, and I want to be very clear on this point: we recorded no
+      meaningful inventory write-downs or excess-inventory charges during the
+      period. The transition to Blackwell has been seamless from a cost
+      standpoint, and we expect gross margins to continue climbing through the
+      remainder of the fiscal year.
+
+  - speaker: Jensen Huang
+    role: President and Chief Executive Officer
+    planted: null                         # benign / aligned with filings
+    text: >-
+      Demand for our Blackwell platform is extraordinary and continues to
+      outpace what we are able to supply. Data Center revenue reached a new
+      record in the quarter as cloud service providers and enterprises raced to
+      build out AI infrastructure. This is the beginning of a decade-long
+      build-out of AI factories.
+
+  - speaker: Analyst - Morgan Stanley
+    role: Analyst
+    planted: null
+    text: >-
+      Thank you for taking my question. Can you talk about seasonality in the
+      gaming segment as we move into the back half of the year?
+
+  - speaker: Jensen Huang
+    role: President and Chief Executive Officer
+    planted: null
+    text: >-
+      Sure. Our desktop gaming products typically see stronger revenue in the
+      second half of our fiscal year, consistent with historical patterns,
+      though we always caution that past seasonality may not repeat.

@@ -1,0 +1,40 @@
+:root {
+  /* Base design tokens (from the Claude Design import) */
+  --paper: #eef1f2;
+  --paperCard: #ffffff;
+  --ink: #16232e;
+  --accent: #b3392c;
+  /* Derived */
+  --inkSoft: color-mix(in oklch, var(--ink) 60%, var(--paper));
+  --inkFaint: color-mix(in oklch, var(--ink) 38%, var(--paper));
+  --hairline: color-mix(in oklch, var(--ink) 14%, var(--paper));
+  --accentSoft: color-mix(in oklch, var(--accent) 14%, var(--paper));
+  --headerBg: color-mix(in oklch, var(--paper) 88%, transparent);
+  /* Severity */
+  --sev-high: #c0392b;
+  --sev-medium: #c98a2c;
+  --sev-low: #3f7d54;
+
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-sans: "Public Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-sans); }
+button { font-family: var(--font-mono); }
+mark { background: color-mix(in oklch, var(--accent) 35%, var(--paperCard)); padding: 1px 2px; border-radius: 2px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes popIn { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: scale(1); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes nodeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes expandDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 420px; } }
+
+/* thin scrollbars in the drawer */
+.drawer::-webkit-scrollbar { width: 8px; }
+.drawer::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 4px; }

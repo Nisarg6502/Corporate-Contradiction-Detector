@@ -1,0 +1,40 @@
+# --- Secrets / local env ---
+.env
+# Google service-account keys (never commit)
+*service-account*.json
+*-*.json.key
+credentials/
+
+# --- Data (raw filings, parsed intermediate stores) ---
+data/raw/
+data/processed/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node / frontend ---
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# --- Claude Code local settings (keep launch.json, ignore local machine settings) ---
+.claude/settings.local.json
