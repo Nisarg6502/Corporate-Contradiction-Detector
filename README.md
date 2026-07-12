@@ -5,7 +5,7 @@
 ![React + Vite](https://img.shields.io/badge/react-vite-61DAFB?logo=react&logoColor=white)
 ![Neo4j](https://img.shields.io/badge/graph-Neo4j-008CC1?logo=neo4j&logoColor=white)
 ![Qdrant](https://img.shields.io/badge/vectors-Qdrant-DC244C)
-![tests](https://img.shields.io/badge/tests-35%20passing-3f7d54)
+![tests](https://img.shields.io/badge/tests-63%20passing-3f7d54)
 
 Ingests a company's public SEC filings (10-K / 10-Q / 8-K), extracts every factual
 and strategic claim made by named speakers, builds a knowledge graph of those claims,
@@ -31,7 +31,16 @@ source document**.
 - **Book-page citations** — real filings render as styled HTML with the exact quote
   highlighted inline; synthetic docs render as the actual PDF page with a highlight.
 - **Hybrid search** — semantic claim search (Qdrant) enriched with graph context.
-- **Full observability** — every extraction/judgment LLM call is traced in Langfuse.
+- **Ask Counterpoint** — a grounded chat assistant (LangGraph orchestrator + tools)
+  scoped to the currently-open company. Every assertion cites a retrieved claim;
+  off-topic questions, other-company questions, investment advice, and prompt
+  injection are all refused by layered guardrails. Answers stream token-by-token
+  (SSE), with suggested-question chips to start the conversation.
+- **Executive summary** — a one-click, streamed narrative of a company's key
+  topics and detected contradictions, with the same inline citations as chat.
+- **Shareable citation card** — a printable/exportable card for a contradiction's
+  two verbatim quotes, reachable from the compare view.
+- **Full observability** — every extraction/judgment/chat LLM call is traced in Langfuse.
 
 ## Screenshots
 
@@ -63,7 +72,8 @@ synthetic PDFs ──────┘  (BS4 /    (LLM + verbatim   + Qdrant     �
 | Graph DB | **Neo4j Aura** (cloud; Desktop also works) |
 | Vector DB | **Qdrant Cloud** (self-host also works) |
 | Embeddings | **FastEmbed** (ONNX, CPU, no torch) |
-| LLM | **Ollama Cloud `gpt-oss:120b`** for extraction + judgment (config-driven; a Gemini/Vertex path is included) |
+| LLM | **Ollama Cloud `gpt-oss:120b`** for extraction + judgment + chat orchestration/synthesis, **`gpt-oss:20b`** for the fast chat guardrail (config-driven; a Gemini/Vertex path is included) |
+| Chat | **LangGraph** supervisor-orchestrator graph (`chatbot/`), streamed over SSE |
 | Parsing | `edgartools` + BeautifulSoup (EDGAR HTML), PyMuPDF (synthetic PDFs) |
 | Frontend | React + Vite (custom SVG graph + citation viewer) |
 | Observability | **Langfuse Cloud** |
@@ -163,6 +173,9 @@ tier — roughly a coffee run. Bounds are in
 | `GET /contradictions?ticker=&min_severity=` | Confirmed contradictions |
 | `GET /claims/{id}/citation` · `/page.png` | Source citation (HTML data or PDF page) |
 | `GET /search?q=&ticker=` | Hybrid semantic + graph search |
+| `POST /companies/{ticker}/chat` | Ask Counterpoint — SSE stream of a grounded chat turn |
+| `GET /companies/{ticker}/chat/suggestions` | Starter questions for the open company |
+| `GET /companies/{ticker}/summary` | SSE stream of a grounded executive summary |
 
 Full interactive docs at `/docs`.
 
@@ -184,15 +197,16 @@ detection/     candidate-pair Cypher + LLM contradiction judgment
 vector/        FastEmbed + Qdrant hybrid search
 pipeline/      on-demand company-processing orchestrator
 observability/ Langfuse tracing (no-op fallback)
-api/           FastAPI app + background job registry + citation builder
+chatbot/       LangGraph chat agent — tools, guardrails, orchestrator/synthesis graph
+api/           FastAPI app + background job registry + citation builder + chat router
 frontend/      React + Vite app (Counterpoint)
-config/        topics, model/provider config, DB connections, processing bounds
-tests/         35 tests (config, ingestion, extraction, graph, detection, api, processing)
+config/        topics, model/provider config, DB connections, processing bounds, chat guardrails
+tests/         63 tests (config, ingestion, extraction, graph, detection, api, processing, chatbot)
 ```
 
 ## Testing
 ```bash
-.venv/Scripts/python -m pytest tests/ -q      # 35 tests, network-free
+.venv/Scripts/python -m pytest tests/ -q      # 63 tests, network-free
 ```
 
 ## Honest notes & limitations

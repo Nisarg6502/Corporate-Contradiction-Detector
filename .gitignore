@@ -37,4 +37,4 @@ Thumbs.db
 .vscode/
 
 # --- Claude Code local settings (keep launch.json, ignore local machine settings) ---
-.claude/settings.local.json
+.claude/

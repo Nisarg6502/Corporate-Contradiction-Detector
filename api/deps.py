@@ -29,3 +29,12 @@ def severities_at_least(min_severity: str) -> list[str]:
     if min_severity not in order:
         return order
     return order[order.index(min_severity):]
+
+
+def processed_tickers() -> set:
+    return {r["ticker"] for r in neo4j().run("MATCH (co:Company) RETURN co.ticker AS ticker")}
+
+
+def company_name(ticker: str) -> str | None:
+    rows = neo4j().run("MATCH (co:Company {ticker: $ticker}) RETURN co.name AS name", ticker=ticker)
+    return rows[0]["name"] if rows else None

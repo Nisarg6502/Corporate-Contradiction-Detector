@@ -8,6 +8,7 @@ Endpoints:
   GET /claims/{id}/citation
   GET /claims/{id}/page.png        (synthetic page image for the citation viewer)
   GET /search?q=&ticker=           (hybrid: Qdrant relevance + graph context)
+  GET /system/info                 (live model/config info for How It Works)
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ from fastapi import FastAPI, HTTPException, Query        # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware        # noqa: E402
 from fastapi.responses import Response                    # noqa: E402
 
+from api import chat as chat_router                        # noqa: E402
 from api import citations, deps, jobs                      # noqa: E402
 from graph import queries                                  # noqa: E402
 from ingestion import company_universe                     # noqa: E402
@@ -28,11 +30,32 @@ from ingestion import company_universe                     # noqa: E402
 app = FastAPI(title="Corporate Contradiction Detector API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"],
                    allow_headers=["*"])
+app.include_router(chat_router.router)
 
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/system/info")
+def system_info():
+    """Sanitized view of config/models.yaml + processing.yaml for the
+    'technical detail' view of How It Works — reads live config so the UI
+    can never drift from what's actually running."""
+    cfg = deps.cfg()
+    m = cfg.models
+    return {
+        "models": {
+            "extraction": m["extraction"],
+            "judgment": m["judgment"],
+            "embedding": m["embedding"],
+            "chat": m["chat"],
+        },
+        "processing": cfg.processing,
+        "topics": cfg.topics,
+        "chatbot": {k: v for k, v in cfg.chatbot.items() if k != "refusal_messages"},
+    }
 
 
 @app.get("/companies")
@@ -48,30 +71,26 @@ def companies():
     return [dict(r) for r in deps.neo4j().run(q)]
 
 
-def _processed_tickers() -> set:
-    return {r["ticker"] for r in deps.neo4j().run("MATCH (co:Company) RETURN co.ticker AS ticker")}
-
-
 @app.get("/company-search")
 def company_search(q: str = Query(...)):
-    return company_universe.search(q, processed=_processed_tickers())
+    return company_universe.search(q, processed=deps.processed_tickers())
 
 
 @app.get("/company-search/popular")
 def company_popular():
     tickers = deps.cfg().processing.get("popular", [])
-    return company_universe.resolve(tickers, processed=_processed_tickers())
+    return company_universe.resolve(tickers, processed=deps.processed_tickers())
 
 
 @app.get("/company-search/recent")
 def company_recent():
-    return company_universe.recent(processed=_processed_tickers())
+    return company_universe.recent(processed=deps.processed_tickers())
 
 
 @app.post("/companies/{ticker}/process")
 def process_company(ticker: str, force: bool = False):
     ticker = ticker.upper()
-    if not force and ticker in _processed_tickers():
+    if not force and ticker in deps.processed_tickers():
         return {"status": "done", "ticker": ticker, "already_processed": True}
     return jobs.start_processing(ticker, force=force)
 

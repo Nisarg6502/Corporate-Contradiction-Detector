@@ -41,3 +41,29 @@ embedding:
   provider: fastembed
   model: BAAI/bge-small-en-v1.5
   dimension: 384
+
+# Conversational chatbot (LangGraph orchestrator + agents). Same "config-driven,
+# never hardcoded" rule as extraction/judgment above.
+chat:
+  # Routing + tool-calling + multi-step analysis — needs the strongest reasoning.
+  orchestrator:
+    provider: ollama
+    model: gpt-oss:120b
+    temperature: 0.2
+    max_tokens: 4096
+  # Final streamed, grounded answer shown to the user.
+  synthesis:
+    provider: ollama
+    model: gpt-oss:120b
+    temperature: 0.3
+    max_tokens: 4096
+  # Fast scope/intent/safety classifier gating every turn — small model, low
+  # latency, deterministic. Reasoning disabled: this only ever emits one
+  # category/verdict word, and gpt-oss's chain-of-thought would otherwise eat
+  # the whole token budget before reaching that word (see chatbot/llm.py).
+  guardrail:
+    provider: ollama
+    model: gpt-oss:20b
+    temperature: 0.0
+    max_tokens: 512
+    reasoning: false

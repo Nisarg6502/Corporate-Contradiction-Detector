@@ -86,6 +86,7 @@ class Config:
     edgar: dict
     _topics: dict
     processing: dict
+    chatbot: dict
 
     @property
     def topics(self) -> list[dict]:
@@ -124,4 +125,5 @@ def get_config() -> Config:
         edgar=_load_yaml("edgar.yaml"),
         _topics=_load_yaml("topics.yaml"),
         processing=_load_yaml("processing.yaml"),
+        chatbot=_load_yaml("chatbot.yaml"),
     )

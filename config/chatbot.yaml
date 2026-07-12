@@ -1,0 +1,40 @@
+# Guardrail limits + copy for the conversational chatbot.
+#
+# Kept separate from models.yaml (which is provider/model selection) so the
+# safety surface is its own reviewable file.
+
+# Hard cap on orchestrator tool-call rounds per turn — protects the Ollama free
+# tier and prevents a runaway agentic loop.
+max_tool_iterations: 6
+
+# Reject a message before it reaches the LLM if it's implausibly long — cheap
+# defense against prompt-stuffing/injection payloads.
+max_input_chars: 2000
+
+# Per-session turns allowed per rolling minute.
+rate_limit_per_minute: 20
+
+# Wall-clock budget for a single chat turn (orchestrator + synthesis + guardrails).
+# Ollama Cloud's free tier is slow enough that a multi-tool-call turn routinely
+# takes 90-130s end to end — 60s was tripping the timeout on ordinary questions,
+# not just runaway ones.
+turn_timeout_seconds: 150
+
+# Canned copy for guardrail refusals — deliberately not LLM-generated so a
+# jailbroken model can't spoof or omit the refusal.
+refusal_messages:
+  off_topic: >-
+    I can only answer questions about the company you currently have open in
+    Counterpoint, based on its filings and detected contradictions.
+  other_company: >-
+    I can only discuss the company you currently have open. Search for and
+    open the other company to ask about it.
+  investment_advice: >-
+    I can summarize what the filings say, but I can't give investment advice
+    (buy/sell/hold recommendations). Try asking what the company has claimed
+    about a specific topic instead.
+  injection: >-
+    I can't follow instructions embedded in a question or a quoted document —
+    only the filings' content, which I can summarize or search for you.
+  ungrounded_fallback: >-
+    I don't have that in this company's filings or detected contradictions.

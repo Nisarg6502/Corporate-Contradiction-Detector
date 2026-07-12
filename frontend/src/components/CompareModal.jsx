@@ -19,7 +19,7 @@ function Side({ date, source, speaker, role, quote }) {
   );
 }
 
-export default function CompareModal({ contradiction: c, onClose }) {
+export default function CompareModal({ contradiction: c, onClose, onShare }) {
   const stop = (e) => e.stopPropagation();
   const color = SEV[c.severity];
   return (
@@ -39,8 +39,17 @@ export default function CompareModal({ contradiction: c, onClose }) {
             borderRadius: 999, background: `color-mix(in oklch, ${color} 15%, var(--paper))`,
             color, fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 600,
           }}>Contradiction · {c.severity} severity</div>
-          <button onClick={onClose} style={{ border: "none", background: "transparent", fontSize: 22,
-            cursor: "pointer", color: "var(--inkSoft)", lineHeight: 1 }}>×</button>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            {onShare && (
+              <button onClick={() => onShare(c)} style={{
+                border: "1px solid var(--hairline)", borderRadius: 999, background: "transparent",
+                color: "var(--inkSoft)", fontFamily: "var(--font-mono)", fontSize: 11,
+                padding: "6px 14px", cursor: "pointer",
+              }}>Share</button>
+            )}
+            <button onClick={onClose} style={{ border: "none", background: "transparent", fontSize: 22,
+              cursor: "pointer", color: "var(--inkSoft)", lineHeight: 1 }}>×</button>
+          </div>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 20,
