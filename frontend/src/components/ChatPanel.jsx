@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
-import { extractCitationOrder, renderCitedText } from "../lib/citations.jsx";
+import { extractCitationOrder } from "../lib/citations.jsx";
+import { renderMarkdown } from "../lib/markdown.jsx";
+
+function fmtTime(ts) {
+  if (!ts) return "";
+  try {
+    return new Date(ts).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  } catch {
+    return "";
+  }
+}
 
 const TOOL_LABELS = {
   list_topics: "Listing topics",
@@ -15,13 +25,11 @@ function ToolIndicator({ tool }) {
   if (!tool) return null;
   return (
     <div style={{
-      display: "flex", alignItems: "center", gap: 8, fontFamily: "var(--font-mono)",
-      fontSize: 11, color: "var(--inkFaint)", padding: "2px 0",
+      display: "flex", alignItems: "center", gap: 9, fontFamily: "var(--font-mono)",
+      fontSize: 11, color: "var(--inkFaint)", padding: "4px 0",
+      animation: "slideUpIn 300ms var(--ease-out) both",
     }}>
-      <span style={{
-        width: 6, height: 6, borderRadius: "50%", background: "var(--accent)",
-        animation: "spin 900ms linear infinite",
-      }} />
+      <span className="cp-typing"><span /><span /><span /></span>
       {TOOL_LABELS[tool] || tool}…
     </div>
   );
@@ -34,11 +42,13 @@ function CitationChips({ claimIds, onOpenCitation }) {
       {claimIds.map((id, i) => (
         <button
           key={id}
+          className="cp-press"
           onClick={() => onOpenCitation(id)}
           style={{
             border: "1px solid var(--hairline)", borderRadius: 999, background: "var(--accentSoft)",
             color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: 10,
             padding: "3px 10px", cursor: "pointer",
+            animation: `popIn 300ms var(--ease-out) ${i * 55}ms both`,
           }}
           title={id}
         >
@@ -49,20 +59,66 @@ function CitationChips({ claimIds, onOpenCitation }) {
   );
 }
 
-function Bubble({ role, text, onOpenCitation, pending }) {
+function Bubble({ role, text, ts, onOpenCitation, pending }) {
   const isUser = role === "user";
   const order = isUser ? [] : extractCitationOrder(text);
+  const showChips = !isUser && !pending && order.length > 0;
   return (
-    <div style={{ display: "flex", justifyContent: isUser ? "flex-end" : "flex-start", marginBottom: 14 }}>
+    <div style={{
+      display: "flex", flexDirection: "column", alignItems: isUser ? "flex-end" : "flex-start",
+      marginBottom: 14, animation: `${isUser ? "slideInRight" : "slideUpIn"} 320ms var(--ease-out) both`,
+    }}>
       <div style={{
         maxWidth: "88%", padding: "12px 16px", borderRadius: 12,
         background: isUser ? "var(--accentSoft)" : "var(--paperCard)",
         border: isUser ? "1px solid transparent" : "1px solid var(--hairline)",
         fontFamily: "var(--font-serif)", fontSize: 15, lineHeight: 1.65, color: "var(--ink)",
-        whiteSpace: "pre-wrap",
+        boxShadow: isUser ? "none" : "0 1px 2px rgba(20,35,46,.04)",
       }}>
-        {text ? renderCitedText(text, order, onOpenCitation) : (pending ? <span style={{ opacity: 0.5 }}>…</span> : "")}
-        {!isUser && <CitationChips claimIds={order} onOpenCitation={onOpenCitation} />}
+        {isUser
+          ? <span style={{ whiteSpace: "pre-wrap" }}>{text}</span>
+          : text
+            ? <>{renderMarkdown(text, order, onOpenCitation)}{pending && <span className="cp-caret" />}</>
+            : (pending ? <span className="cp-typing"><span /><span /><span /></span> : "")}
+        {showChips && <CitationChips claimIds={order} onOpenCitation={onOpenCitation} />}
+      </div>
+      {ts && (isUser || (text && text.trim())) && (
+        <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--inkFaint)",
+          margin: "4px 4px 0" }}>
+          {fmtTime(ts)}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FollowupChips({ questions, onPick, disabled }) {
+  if (!questions || questions.length === 0) return null;
+  return (
+    <div style={{ marginTop: 4, marginBottom: 8, animation: "slideUpIn 360ms var(--ease-out) both" }}>
+      <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, letterSpacing: ".06em",
+        textTransform: "uppercase", color: "var(--inkFaint)", marginBottom: 8, marginLeft: 2 }}>
+        You might also ask
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {questions.map((q, i) => (
+          <button
+            key={q}
+            onClick={() => onPick(q)}
+            disabled={disabled}
+            onMouseEnter={(e) => { if (!disabled) { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "var(--accentSoft)"; } }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--hairline)"; e.currentTarget.style.background = "var(--paperCard)"; }}
+            style={{
+              textAlign: "left", border: "1px solid var(--hairline)", borderRadius: 999,
+              background: "var(--paperCard)", padding: "7px 13px",
+              cursor: disabled ? "default" : "pointer",
+              fontFamily: "var(--font-serif)", fontSize: 12.5, color: "var(--ink)",
+              transition: "border-color 150ms ease, background-color 150ms ease",
+              animation: `popIn 300ms var(--ease-out) ${i * 60}ms both`,
+            }}>
+            {q}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -75,6 +131,7 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
   const [streaming, setStreaming] = useState(false);
   const [activeTool, setActiveTool] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [followups, setFollowups] = useState([]);
   const [error, setError] = useState(null);
   const [lastMessage, setLastMessage] = useState("");
   const scrollRef = useRef(null);
@@ -87,17 +144,20 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
     setError(null);
     setLastMessage("");
     setSuggestions([]);
+    setFollowups([]);
     if (!ticker) return;
     api.chatSuggestions(ticker).then((r) => setSuggestions(r.questions || [])).catch(() => {});
   }, [ticker]);
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [messages, activeTool]);
+  }, [messages, activeTool, followups]);
 
   async function runTurn(trimmed) {
     setStreaming(true);
     setActiveTool(null);
+    setFollowups([]);
+    let finalAnswer = "";
 
     const updateLastAssistant = (patch) =>
       setMessages((m) => {
@@ -111,12 +171,16 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
       await api.chatStream(ticker, sessionId, trimmed, {
         session: (d) => setSessionId(d.session_id),
         tool: (d) => setActiveTool(d.status === "start" ? d.name : null),
-        token: (d) => updateLastAssistant((last) => ({ text: (last.text || "") + d.text })),
-        retry: () => updateLastAssistant(() => ({ text: "" })),
+        token: (d) => {
+          finalAnswer += d.text;
+          updateLastAssistant((last) => ({ text: (last.text || "") + d.text, ts: last.ts || Date.now() }));
+        },
+        retry: () => { finalAnswer = ""; updateLastAssistant(() => ({ text: "" })); },
         citation: () => {},
         error: (d) => setError(d.message),
         done: (d) => {
-          updateLastAssistant((last) => ({ text: last.text || d.answer || "" }));
+          if (d.answer) finalAnswer = d.answer;
+          updateLastAssistant((last) => ({ text: last.text || d.answer || "", ts: last.ts || Date.now() }));
         },
       });
     } catch (e) {
@@ -124,6 +188,14 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
     } finally {
       setStreaming(false);
       setActiveTool(null);
+    }
+
+    // Generate follow-up suggestions AFTER the answer is shown, so this extra
+    // (fast, small-model) call never delays the answer itself. Best-effort.
+    if (finalAnswer.trim()) {
+      api.chatFollowups(ticker, trimmed, finalAnswer)
+        .then((r) => setFollowups(r.questions || []))
+        .catch(() => {});
     }
   }
 
@@ -133,7 +205,7 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
     setError(null);
     setInput("");
     setLastMessage(trimmed);
-    setMessages((m) => [...m, { role: "user", text: trimmed }, { role: "assistant", text: "" }]);
+    setMessages((m) => [...m, { role: "user", text: trimmed, ts: Date.now() }, { role: "assistant", text: "" }]);
     await runTurn(trimmed);
   }
 
@@ -176,20 +248,25 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
 
         <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "20px 20px 8px" }}>
           {messages.length === 0 && (
-            <div>
+            <div style={{ animation: "fadeIn 400ms ease both" }}>
               <div style={{ fontFamily: "var(--font-serif)", fontSize: 14, color: "var(--inkSoft)",
-                marginBottom: 16, lineHeight: 1.6 }}>
+                marginBottom: 16, lineHeight: 1.6, animation: "slideUpIn 420ms var(--ease-out) both" }}>
                 Ask about {company?.name || ticker}'s claims and detected contradictions.
                 Answers are grounded in this company's filings, with citations.
               </div>
               {suggestions.length > 0 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {suggestions.map((q) => (
-                    <button key={q} onClick={() => send(q)} style={{
-                      textAlign: "left", border: "1px solid var(--hairline)", borderRadius: 10,
-                      background: "var(--paperCard)", padding: "10px 14px", cursor: "pointer",
-                      fontFamily: "var(--font-serif)", fontSize: 13.5, color: "var(--ink)",
-                    }}>
+                  {suggestions.map((q, i) => (
+                    <button key={q} onClick={() => send(q)}
+                      onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "var(--accentSoft)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--hairline)"; e.currentTarget.style.background = "var(--paperCard)"; }}
+                      style={{
+                        textAlign: "left", border: "1px solid var(--hairline)", borderRadius: 10,
+                        background: "var(--paperCard)", padding: "10px 14px", cursor: "pointer",
+                        fontFamily: "var(--font-serif)", fontSize: 13.5, color: "var(--ink)",
+                        transition: "border-color 150ms ease, background-color 150ms ease, transform 150ms var(--ease-out)",
+                        animation: `slideUpIn 400ms var(--ease-out) ${120 + i * 70}ms both`,
+                      }}>
                       {q}
                     </button>
                   ))}
@@ -199,21 +276,28 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
           )}
 
           {messages.map((m, i) => (
-            <Bubble key={i} role={m.role} text={m.text}
+            <Bubble key={i} role={m.role} text={m.text} ts={m.ts}
               onOpenCitation={onOpenCitation}
               pending={streaming && i === messages.length - 1 && m.role === "assistant"} />
           ))}
           <ToolIndicator tool={activeTool} />
+          {!streaming && !error && (
+            <FollowupChips questions={followups} onPick={(q) => send(q)} disabled={streaming} />
+          )}
           {error && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8,
+              animation: "slideUpIn 300ms var(--ease-out) both" }}>
               <span style={{ color: "var(--sev-high)", fontFamily: "var(--font-mono)", fontSize: 12 }}>
                 {error}
               </span>
-              <button onClick={retry} disabled={streaming} title="Retry" style={{
-                border: "1px solid var(--hairline)", borderRadius: 999, background: "transparent",
-                color: "var(--inkSoft)", fontSize: 13, width: 22, height: 22, lineHeight: 1,
-                cursor: streaming ? "default" : "pointer", padding: 0, flexShrink: 0,
-              }}>
+              <button onClick={retry} disabled={streaming} title="Retry" className="cp-press"
+                onMouseEnter={(e) => { if (!streaming) e.currentTarget.style.borderColor = "var(--accent)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--hairline)"; }}
+                style={{
+                  border: "1px solid var(--hairline)", borderRadius: 999, background: "transparent",
+                  color: "var(--inkSoft)", fontSize: 13, width: 22, height: 22, lineHeight: 1,
+                  cursor: streaming ? "default" : "pointer", padding: 0, flexShrink: 0,
+                }}>
                 ↻
               </button>
             </div>

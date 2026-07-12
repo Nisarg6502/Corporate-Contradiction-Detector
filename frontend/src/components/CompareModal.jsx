@@ -1,10 +1,11 @@
 import { fmtDate, SEV } from "../api.js";
 
-function Side({ date, source, speaker, role, quote }) {
+function Side({ date, source, speaker, role, quote, from }) {
   return (
     <div style={{
       border: source === "synthetic" ? "1px dashed var(--hairline)" : "1px solid var(--hairline)",
       borderRadius: 12, padding: 20,
+      animation: `${from === "left" ? "slideInLeftSide" : "slideInRightSide"} 460ms var(--ease-out) 180ms both`,
     }}>
       <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--inkFaint)", marginBottom: 10 }}>
         {fmtDate(date)} · {source === "synthetic" ? "Earnings Call · synthetic" : "Filing"}
@@ -54,9 +55,10 @@ export default function CompareModal({ contradiction: c, onClose, onShare }) {
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 20,
           alignItems: "center", margin: "24px 0" }}>
-          <Side date={c.a_date} source={c.a_source} speaker={c.a_speaker} role={c.a_role} quote={c.a_quote} />
-          <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontStyle: "italic", color }}>vs</div>
-          <Side date={c.b_date} source={c.b_source} speaker={c.b_speaker} role={c.b_role} quote={c.b_quote} />
+          <Side date={c.a_date} source={c.a_source} speaker={c.a_speaker} role={c.a_role} quote={c.a_quote} from="left" />
+          <div style={{ fontFamily: "var(--font-serif)", fontSize: 22, fontStyle: "italic", color,
+            animation: "popIn 460ms var(--ease-out) 480ms both" }}>vs</div>
+          <Side date={c.b_date} source={c.b_source} speaker={c.b_speaker} role={c.b_role} quote={c.b_quote} from="right" />
         </div>
 
         <div style={{ paddingTop: 16, borderTop: "1px solid var(--hairline)" }}>

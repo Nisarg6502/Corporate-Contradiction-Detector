@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 
-function CompanyRow({ c, onOpen }) {
+function CompanyRow({ c, onOpen, index = 0 }) {
   return (
     <div onClick={() => onOpen(c)} style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
       gap: 12, padding: "12px 16px", background: "var(--paperCard)",
       border: "1px solid var(--hairline)", borderRadius: 10, cursor: "pointer",
-      transition: "border-color 120ms ease",
+      transition: "border-color 140ms ease, transform 160ms var(--ease-out), box-shadow 180ms var(--ease-out)",
+      animation: `slideUpIn 400ms var(--ease-out) ${Math.min(index, 10) * 45}ms both`,
     }}
-      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--ink)")}
-      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--hairline)")}>
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--ink)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(20,35,46,.08)"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--hairline)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
       <div style={{ display: "flex", alignItems: "baseline", gap: 10, minWidth: 0 }}>
         <span style={{ fontFamily: "var(--font-mono)", fontWeight: 600, fontSize: 13,
           color: "var(--ink)", flexShrink: 0 }}>{c.ticker}</span>
@@ -91,16 +92,16 @@ export default function Landing({ onOpen }) {
         <div style={{ marginTop: 18, textAlign: "left", display: "flex", flexDirection: "column", gap: 8 }}>
           {results !== null ? (
             results.length === 0
-              ? <div style={{ fontSize: 13, color: "var(--inkFaint)", textAlign: "center", padding: 12 }}>No matches.</div>
-              : results.map((c) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} />)
+              ? <div style={{ fontSize: 13, color: "var(--inkFaint)", textAlign: "center", padding: 12, animation: "fadeIn 260ms ease both" }}>No matches.</div>
+              : results.map((c, i) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} index={i} />)
           ) : (
             <>
               <Section label="Popular">
-                {popular.map((c) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} />)}
+                {popular.map((c, i) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} index={i} />)}
               </Section>
               {recent.length > 0 && (
                 <Section label="Recently filed">
-                  {recent.slice(0, 8).map((c) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} />)}
+                  {recent.slice(0, 8).map((c, i) => <CompanyRow key={c.ticker} c={c} onOpen={onOpen} index={i} />)}
                 </Section>
               )}
             </>

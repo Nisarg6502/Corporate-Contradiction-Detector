@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
-import { extractCitationOrder, renderCitedText } from "../lib/citations.jsx";
+import { extractCitationOrder } from "../lib/citations.jsx";
+import { renderMarkdown } from "../lib/markdown.jsx";
 
 function CitationChips({ claimIds, onOpenCitation }) {
   if (!claimIds || claimIds.length === 0) return null;
@@ -9,17 +10,38 @@ function CitationChips({ claimIds, onOpenCitation }) {
       {claimIds.map((id, i) => (
         <button
           key={id}
+          className="cp-press"
           onClick={() => onOpenCitation(id)}
           style={{
             border: "1px solid var(--hairline)", borderRadius: 999, background: "var(--accentSoft)",
             color: "var(--accent)", fontFamily: "var(--font-mono)", fontSize: 10,
             padding: "3px 10px", cursor: "pointer",
+            animation: `popIn 300ms var(--ease-out) ${i * 45}ms both`,
           }}
           title={id}
         >
           Source {i + 1}
         </button>
       ))}
+    </div>
+  );
+}
+
+// Shimmering placeholder shown while the first summary tokens are still in
+// flight — reads as "the document is being drafted" rather than a dead pause.
+function SummarySkeleton() {
+  const widths = ["96%", "88%", "92%", "70%", "0", "94%", "85%", "90%", "60%"];
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, animation: "fadeIn 300ms ease both" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+        <span className="cp-typing"><span /><span /><span /></span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--inkFaint)" }}>
+          Reading the filings
+        </span>
+      </div>
+      {widths.map((w, i) => w === "0"
+        ? <div key={i} style={{ height: 6 }} />
+        : <div key={i} className="cp-skeleton" style={{ height: 12, width: w }} />)}
     </div>
   );
 }
@@ -85,11 +107,13 @@ export default function SummaryPanel({ open, onClose, company, onOpenCitation })
               ↻
             </button>
           </div>
+        ) : !text && loading ? (
+          <SummarySkeleton />
         ) : (
           <div style={{ fontFamily: "var(--font-serif)", fontSize: 15.5, lineHeight: 1.75, color: "var(--ink)",
-            whiteSpace: "pre-wrap" }}>
-            {text ? renderCitedText(text, order, onOpenCitation) : (loading ? "Reading the filings…" : "")}
-            {loading && <span style={{ opacity: 0.5 }}> ▌</span>}
+            display: "flex", flexDirection: "column", gap: 2, animation: "fadeIn 300ms ease both" }}>
+            {renderMarkdown(text, order, onOpenCitation)}
+            {loading && <span className="cp-caret" />}
           </div>
         )}
 

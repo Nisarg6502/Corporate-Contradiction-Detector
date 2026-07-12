@@ -11,6 +11,7 @@ import CompareModal from "./components/CompareModal.jsx";
 import ChatPanel from "./components/ChatPanel.jsx";
 import SummaryPanel from "./components/SummaryPanel.jsx";
 import CitationCard from "./components/CitationCard.jsx";
+import AppLoader from "./components/AppLoader.jsx";
 
 export default function App() {
   const [companies, setCompanies] = useState([]);
@@ -30,9 +31,22 @@ export default function App() {
   const [processingCompany, setProcessingCompany] = useState(null);
   const [loadingWs, setLoadingWs] = useState(false);
   const [error, setError] = useState(null);
+  const [booting, setBooting] = useState(true);
+  const [bootLeaving, setBootLeaving] = useState(false);
 
   useEffect(() => {
-    api.companies().then(setCompanies).catch(() => {});
+    // Boot loader: let the branded animation tell its story for a beat, then
+    // fade it out once the initial company list has settled.
+    const started = Date.now();
+    const MIN_MS = 1900; // long enough for the scan → clash animation to resolve
+    const finish = () => {
+      const wait = Math.max(0, MIN_MS - (Date.now() - started));
+      setTimeout(() => {
+        setBootLeaving(true);
+        setTimeout(() => setBooting(false), 480); // matches bootOut duration
+      }, wait);
+    };
+    api.companies().then(setCompanies).catch(() => {}).finally(finish);
   }, []);
 
   function handleOpen(c) {
@@ -114,6 +128,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      {booting && <AppLoader leaving={bootLeaving} />}
       <Header company={view === "workspace" ? company : null}
         onNewSearch={() => { setView("landing"); setGraphOpen(false); setChatOpen(false); setSummaryOpen(false); }}
         onHowItWorks={() => setView("how")} />
@@ -130,13 +145,22 @@ export default function App() {
 
       {view === "workspace" && loadingWs && (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center",
-          justifyContent: "center", minHeight: "calc(100vh - 68px)", gap: 14,
-          color: "var(--inkSoft)" }}>
-          <div style={{ width: 26, height: 26, borderRadius: "50%",
-            border: "3px solid var(--hairline)", borderTopColor: "var(--accent)",
-            animation: "spin 800ms linear infinite" }} />
+          justifyContent: "center", minHeight: "calc(100vh - 68px)", gap: 18,
+          color: "var(--inkSoft)", animation: "fadeIn 300ms ease both" }}>
+          <div style={{ position: "relative", width: 26, height: 26 }}>
+            <div style={{ position: "absolute", inset: 0, borderRadius: "50%",
+              border: "3px solid var(--hairline)", borderTopColor: "var(--accent)",
+              animation: "spin 800ms linear infinite" }} />
+            <div style={{ position: "absolute", inset: -6, borderRadius: "50%",
+              border: "1px solid var(--accent)", opacity: 0,
+              animation: "ringPulse 1.8s ease-out infinite" }} />
+          </div>
           <div style={{ fontFamily: "var(--font-mono)", fontSize: 13 }}>
-            Loading {company?.name || company?.ticker}…</div>
+            Loading {company?.name || company?.ticker}
+            <span className="cp-typing" style={{ marginLeft: 6, verticalAlign: "middle" }}>
+              <span /><span /><span />
+            </span>
+          </div>
         </div>
       )}
 
@@ -148,14 +172,19 @@ export default function App() {
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: ".1em",
               textTransform: "uppercase", color: "var(--inkFaint)", marginBottom: 16 }}>Topics</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-              {topics.map((t) => {
+              {topics.map((t, i) => {
                 const sev = maxSevByTopic[t.topic];
                 const active = t.topic === activeTopicId;
                 return (
                   <div key={t.topic} onClick={() => { setActiveTopicId(t.topic); setGraphOpen(false); }}
+                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "color-mix(in oklch, var(--ink) 5%, var(--paper))"; }}
+                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
                     style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
                       gap: 8, padding: "10px 12px", borderRadius: 8, cursor: "pointer",
-                      background: active ? "var(--accentSoft)" : "transparent" }}>
+                      transition: "background-color 150ms ease, transform 150ms var(--ease-out)",
+                      background: active ? "var(--accentSoft)" : "transparent",
+                      animation: `slideUpIn 380ms var(--ease-out) ${Math.min(i, 12) * 35}ms both` }}>
+
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span style={{ width: 7, height: 7, borderRadius: "50%", flexShrink: 0,
                         background: sev ? SEV[sev] : "transparent",
@@ -215,7 +244,7 @@ export default function App() {
                 const contra = contraByClaim[c.claim_id];
                 const synthetic = c.source === "synthetic";
                 return (
-                  <div key={c.claim_id} style={{ background: "var(--paperCard)",
+                  <div key={c.claim_id} className="cp-lift" style={{ background: "var(--paperCard)",
                     border: synthetic ? "1px dashed var(--hairline)" : "1px solid var(--hairline)",
                     borderRadius: 12, padding: "20px 22px",
                     animation: `fadeUp 500ms ease ${i * 70}ms both` }}>

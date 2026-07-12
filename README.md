@@ -35,26 +35,37 @@ source document**.
   scoped to the currently-open company. Every assertion cites a retrieved claim;
   off-topic questions, other-company questions, investment advice, and prompt
   injection are all refused by layered guardrails. Answers stream token-by-token
-  (SSE), with suggested-question chips to start the conversation.
+  (SSE) and render as **Markdown** with inline footnote-style citations, each
+  message is **timestamped**, and every turn ends with **contextual follow-up
+  chips** you can click to keep digging. Starter-question chips seed the empty state.
 - **Executive summary** — a one-click, streamed narrative of a company's key
-  topics and detected contradictions, with the same inline citations as chat.
+  topics and detected contradictions, Markdown-rendered with the same inline
+  citations as chat.
+- **Considered motion design** — a purpose-built boot loader (a filing is scanned,
+  two claims are traced in, a contradiction sparks), streaming carets, typing
+  indicators, and smooth slide/scale transitions throughout — all respecting
+  `prefers-reduced-motion`.
 - **Shareable citation card** — a printable/exportable card for a contradiction's
   two verbatim quotes, reachable from the compare view.
 - **Full observability** — every extraction/judgment/chat LLM call is traced in Langfuse.
 
 ## Screenshots
 
-> Drop PNGs into `docs/screenshots/` with these names and they'll render here. The best
-> shots: the landing page, the NVDA gross-margin contradiction (compare modal), the
-> contradiction graph, and a book-page citation.
+Search any public company, then trace every claim back to its source.
 
-| Landing & discovery | Contradiction compare |
-| --- | --- |
-| ![Landing](docs/screenshots/landing.png) | ![Compare](docs/screenshots/compare.png) |
+![Landing — company discovery](docs/screenshots/landing.png)
 
-| Contradiction graph | Book-page citation |
+| Ask Counterpoint — grounded chat | Executive summary |
 | --- | --- |
-| ![Graph](docs/screenshots/graph.png) | ![Citation](docs/screenshots/citation.png) |
+| ![Ask Counterpoint chat](docs/screenshots/chat.png) | ![Executive summary](docs/screenshots/summary.png) |
+
+| Contradiction compare | Contradiction graph |
+| --- | --- |
+| ![Contradiction compare](docs/screenshots/compare.png) | ![Contradiction graph](docs/screenshots/graph.png) |
+
+| Claim timeline | Book-page citation |
+| --- | --- |
+| ![Claim timeline](docs/screenshots/workspace.png) | ![Book-page citation](docs/screenshots/citation.png) |
 
 ## Architecture
 
@@ -80,6 +91,29 @@ synthetic PDFs ──────┘  (BS4 /    (LLM + verbatim   + Qdrant     �
 
 Model IDs, the topic list, DB connections, and processing bounds all live in
 [`config/`](config/) and are **never hardcoded** in pipeline code.
+
+### Retrieval design (RAG)
+
+"Ask Counterpoint" is **agentic, hybrid, grounding-verified RAG** — not naive
+retrieve-then-generate:
+
+- **Agentic.** A LangGraph orchestrator (`gpt-oss:120b`) runs a ReAct-style loop,
+  choosing *which* retrieval tool to call and *when* (bounded by
+  `max_tool_iterations`), then hands off to a separate synthesizer — see
+  [`chatbot/tools.py`](chatbot/tools.py) and [`chatbot/graph.py`](chatbot/graph.py).
+- **Hybrid.** Two retrieval modalities the agent picks between: **semantic/dense**
+  (`semantic_search` → FastEmbed `bge-small-en-v1.5` → Qdrant ANN) and
+  **structured / GraphRAG** (topic timelines, contradictions, speakers, citations
+  → Neo4j Cypher).
+- **Scoped.** Every tool is closed over one `ticker`, so retrieval is hard-filtered
+  to the open company — the model cannot query another.
+- **Grounding-verified.** Tools return `content_and_artifact`; the output guardrail
+  checks that every claim the answer cites was actually retrieved, regenerating once
+  or falling back to "not in the filings". This is the quote-span honesty guarantee
+  extended to conversation.
+
+The **executive summary** uses a simpler single-shot grounded variant (gather top
+topics/contradictions → one synthesis call), sharing the same citation convention.
 
 ### Graph data model (Neo4j)
 
@@ -175,7 +209,9 @@ tier — roughly a coffee run. Bounds are in
 | `GET /search?q=&ticker=` | Hybrid semantic + graph search |
 | `POST /companies/{ticker}/chat` | Ask Counterpoint — SSE stream of a grounded chat turn |
 | `GET /companies/{ticker}/chat/suggestions` | Starter questions for the open company |
+| `POST /companies/{ticker}/chat/followups` | Contextual follow-up questions for the last turn |
 | `GET /companies/{ticker}/summary` | SSE stream of a grounded executive summary |
+| `GET /system/info` | Live model/config info for the "technical detail" How-It-Works view |
 
 Full interactive docs at `/docs`.
 

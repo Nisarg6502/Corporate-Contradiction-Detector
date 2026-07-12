@@ -1,13 +1,16 @@
 # Screenshots
 
-Add PNG screenshots here to make the main README pop. Recommended (referenced by the
-README):
+PNG screenshots referenced by the main README. Captured from the running app at
+1360×880, 2× device scale (crisp on GitHub), with reduced-motion so entrance
+animations settle to their final frame.
 
 - `landing.png` — the company-discovery landing page
-- `compare.png` — a contradiction compare modal (e.g. NVDA gross margin)
-- `graph.png` — the contradiction graph (open "View graph" on a topic with a red edge)
-- `citation.png` — a book-page citation drawer (real filing or synthetic PDF)
+- `workspace.png` — a topic's claim timeline (sidebar + claim cards)
+- `chat.png` — Ask Counterpoint: a grounded, cited answer with follow-up chips
+- `summary.png` — the streamed executive summary
+- `compare.png` — a contradiction compare modal (NVDA gross margin)
+- `graph.png` — the contradiction graph (hub-and-spoke, severity-weighted edges)
+- `citation.png` — a book-page citation drawer with the verified quote highlighted
 
-Optional extras: `how-it-works.png`, `processing.png`, `search.png`.
-
-Capture them at ~1280px wide for crisp rendering on GitHub.
+To regenerate, run the dev servers and drive the UI (e.g. with Playwright) against
+`http://localhost:5173`.

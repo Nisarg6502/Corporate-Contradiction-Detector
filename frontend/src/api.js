@@ -14,6 +14,16 @@ async function postJSON(path) {
   return res.json();
 }
 
+async function postJSONBody(path, body) {
+  const res = await fetch(BASE + path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+  return res.json();
+}
+
 // Server-Sent Events reader for the chat/summary endpoints. `handlers` maps
 // SSE `event:` names (session, token, tool, citation, retry, error, done) to
 // callbacks invoked with the parsed `data:` JSON payload. Fetch-based rather
@@ -78,6 +88,8 @@ export const api = {
       handlers
     ),
   chatSuggestions: (ticker) => getJSON(`/companies/${ticker}/chat/suggestions`),
+  chatFollowups: (ticker, question, answer) =>
+    postJSONBody(`/companies/${ticker}/chat/followups`, { question, answer }),
   systemInfo: () => getJSON("/system/info"),
   summaryStream: (ticker, handlers) =>
     streamSSE(`/companies/${ticker}/summary`, { method: "GET" }, handlers),

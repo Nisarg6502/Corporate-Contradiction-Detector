@@ -35,6 +35,11 @@ class ChatRequest(BaseModel):
     session_id: str | None = None
 
 
+class FollowupRequest(BaseModel):
+    question: str
+    answer: str
+
+
 def _sse(event: str, data: dict) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
@@ -135,6 +140,17 @@ async def chat(ticker: str, body: ChatRequest):
 def chat_suggestions(ticker: str):
     ticker = _require_processed(ticker)
     return {"questions": suggestions.suggested_questions(ticker)}
+
+
+@router.post("/companies/{ticker}/chat/followups")
+def chat_followups(ticker: str, body: FollowupRequest):
+    """Contextual follow-up questions for the just-finished turn. Called after
+    the answer has streamed, so it never delays the answer. Best-effort — an
+    empty list is a fine result, the UI just shows no chips."""
+    ticker = _require_processed(ticker)
+    company_name = deps.company_name(ticker) or ticker
+    questions = suggestions.followup_questions(ticker, company_name, body.question, body.answer)
+    return {"questions": questions}
 
 
 @router.get("/companies/{ticker}/summary")
