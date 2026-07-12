@@ -8,6 +8,9 @@ import GraphView from "./components/GraphView.jsx";
 import WorkspaceSearch from "./components/WorkspaceSearch.jsx";
 import CitationDrawer from "./components/CitationDrawer.jsx";
 import CompareModal from "./components/CompareModal.jsx";
+import ChatPanel from "./components/ChatPanel.jsx";
+import SummaryPanel from "./components/SummaryPanel.jsx";
+import CitationCard from "./components/CitationCard.jsx";
 
 export default function App() {
   const [companies, setCompanies] = useState([]);
@@ -21,6 +24,9 @@ export default function App() {
   const [citation, setCitation] = useState(null);
   const [citationLoading, setCitationLoading] = useState(false);
   const [comparePair, setComparePair] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [shareContradiction, setShareContradiction] = useState(null);
   const [processingCompany, setProcessingCompany] = useState(null);
   const [loadingWs, setLoadingWs] = useState(false);
   const [error, setError] = useState(null);
@@ -109,7 +115,7 @@ export default function App() {
   return (
     <div style={{ minHeight: "100vh" }}>
       <Header company={view === "workspace" ? company : null}
-        onNewSearch={() => { setView("landing"); setGraphOpen(false); }}
+        onNewSearch={() => { setView("landing"); setGraphOpen(false); setChatOpen(false); setSummaryOpen(false); }}
         onHowItWorks={() => setView("how")} />
 
       {view === "landing" && <Landing onOpen={handleOpen} />}
@@ -177,6 +183,11 @@ export default function App() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
               <WorkspaceSearch ticker={company?.ticker} onResult={openClaimResult} />
+              <button onClick={() => setSummaryOpen(true)}
+                style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 16px",
+                  borderRadius: 999, border: "1px solid var(--hairline)", background: "transparent",
+                  color: "var(--ink)", fontSize: 12, cursor: "pointer", whiteSpace: "nowrap" }}>
+                Summary</button>
               <button onClick={() => setGraphOpen((v) => !v)}
                 style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 16px",
                   borderRadius: 999, border: "1px solid var(--ink)",
@@ -184,6 +195,11 @@ export default function App() {
                   color: graphOpen ? "var(--paperCard)" : "var(--ink)", fontSize: 12,
                   cursor: "pointer", whiteSpace: "nowrap" }}>
                 {graphOpen ? "Hide graph" : "View graph"}</button>
+              <button onClick={() => setChatOpen(true)}
+                style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 16px",
+                  borderRadius: 999, border: "none", background: "var(--accent)",
+                  color: "#fff", fontSize: 12, cursor: "pointer", whiteSpace: "nowrap" }}>
+                Ask Counterpoint</button>
               </div>
             </div>
 
@@ -253,8 +269,18 @@ export default function App() {
           onClose={() => setCitation(null)} />
       )}
       {comparePair && (
-        <CompareModal contradiction={comparePair} onClose={() => setComparePair(null)} />
+        <CompareModal contradiction={comparePair} onClose={() => setComparePair(null)}
+          onShare={(c) => setShareContradiction(c)} />
       )}
+      {shareContradiction && (
+        <CitationCard contradiction={shareContradiction} company={company}
+          onClose={() => setShareContradiction(null)} />
+      )}
+
+      <ChatPanel open={chatOpen} onClose={() => setChatOpen(false)} company={company}
+        onOpenCitation={openCitation} />
+      <SummaryPanel open={summaryOpen} onClose={() => setSummaryOpen(false)} company={company}
+        onOpenCitation={openCitation} />
     </div>
   );
 }
