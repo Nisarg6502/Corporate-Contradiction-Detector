@@ -1,5 +1,16 @@
 import { fmtDate } from "../api.js";
 
+// The highlight sweeps in left-to-right so the verified quote-span "reveals"
+// itself rather than just appearing — the moment the app earns its credibility.
+const markStyle = {
+  background: "linear-gradient(color-mix(in oklch, var(--accent) 35%, var(--paperCard)),"
+    + " color-mix(in oklch, var(--accent) 35%, var(--paperCard)))",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "0% 100%",
+  padding: "1px 2px", borderRadius: 2,
+  animation: "markSweep 720ms var(--ease-out) 340ms both",
+};
+
 function splitQuote(text, quote) {
   const idx = text ? text.indexOf(quote) : -1;
   if (idx < 0) return { before: text || "", mark: quote || "", after: "" };
@@ -45,7 +56,7 @@ export default function CitationDrawer({ citation, loading, onClose }) {
                 background: "repeating-linear-gradient(var(--paperCard),var(--paperCard) 27px,var(--hairline) 28px)",
                 padding: "28px 24px", boxShadow: "0 1px 3px rgba(0,0,0,.06)" }}>
                 <div style={{ fontFamily: "var(--font-serif)", fontSize: 15, lineHeight: 1.9, color: "var(--ink)" }}>
-                  {before}<mark>{mark}</mark>{after}
+                  {before}<mark style={markStyle}>{mark}</mark>{after}
                 </div>
                 <div style={{ marginTop: 18, fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--inkFaint)" }}>
                   Rendered from PDF · page {r.page}
@@ -57,14 +68,16 @@ export default function CitationDrawer({ citation, loading, onClose }) {
                   marginBottom: 10, color: "var(--inkSoft)" }}>{r.section_heading}</div>
                 <div style={{ fontFamily: "var(--font-serif)", fontSize: 16, lineHeight: 1.85,
                   textAlign: "justify", color: "var(--ink)" }}>
-                  {before}<mark>{mark}</mark>{after}
+                  {before}<mark style={markStyle}>{mark}</mark>{after}
                 </div>
               </div>
             )}
 
             <div style={{ marginTop: 28, display: "flex", alignItems: "center", gap: 8,
-              fontFamily: "var(--font-mono)", fontSize: 11, color: "#3f7d54" }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#3f7d54" }} />
+              fontFamily: "var(--font-mono)", fontSize: 11, color: "#3f7d54",
+              animation: "slideUpIn 500ms var(--ease-out) 1000ms both" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#3f7d54",
+                animation: "popIn 400ms var(--ease-out) 1000ms both" }} />
               Quote-span verified exact match
             </div>
             <div style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid var(--hairline)",

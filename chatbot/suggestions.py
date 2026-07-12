@@ -23,6 +23,14 @@ contradictions already found for this company, write exactly {n} distinct, \
 specific questions a curious user might ask. Each under 12 words. One per \
 line, no numbering, no other text."""
 
+_FOLLOWUP_SYSTEM = """You suggest follow-up questions for a chat assistant about \
+{company}'s SEC filings and detected contradictions. Given the user's last \
+question and the assistant's answer, write exactly {n} short, natural \
+follow-up questions that dig deeper into the SAME subject or an obviously \
+related one the answer hints at. Each under 12 words, specific to this \
+company's filings, answerable from filings/contradictions (never investment \
+advice). One per line, no numbering, no quotes, no other text."""
+
 
 def _fallback_questions(topics: list[dict], contradictions: list[dict], n: int) -> list[str]:
     qs = [f"What contradiction did you find about {c['topic_name'].lower()}?"
@@ -61,3 +69,34 @@ def suggested_questions(ticker: str, n: int = 5) -> list[str]:
         return questions[:n] if questions else fallback
     except Exception:
         return fallback
+
+
+def followup_questions(ticker: str, company_name: str, question: str,
+                       answer: str, n: int = 3) -> list[str]:
+    """Contextual follow-up questions generated from the just-finished turn.
+
+    Runs on the fast guardrail model (small, reasoning-off) and is called
+    *after* the answer has streamed, so it never delays the answer itself.
+    Returns [] on any failure — follow-up chips are a nicety, not core chat.
+    """
+    if not (question or "").strip() or not (answer or "").strip():
+        return []
+    cfg = get_config()
+    try:
+        llm = build_chat_llm(cfg, "guardrail")
+        model = cfg.models["chat"]["guardrail"]["model"]
+        system = _FOLLOWUP_SYSTEM.format(company=company_name or ticker, n=n)
+        # Trim both fields so an oversized body can't blow the small model's
+        # context or slow it down — the gist is enough to propose follow-ups.
+        user = f"USER ASKED: {question.strip()[:500]}\n\nASSISTANT ANSWERED: {answer.strip()[:1500]}"
+        with obs.generation("chat-followups", model,
+                             prompt={"system": system, "user": user},
+                             metadata={"ticker": ticker, "stage": "followups"}) as gen:
+            resp = llm.invoke([SystemMessage(content=system), HumanMessage(content=user)])
+            gen.finish(output=resp.content)
+        lines = [l.strip(" -*\t\"'") for l in (resp.content or "").splitlines() if l.strip()]
+        # Drop anything that leaked numbering or is implausibly long.
+        clean = [l for l in lines if 3 <= len(l) <= 120]
+        return clean[:n]
+    except Exception:
+        return []

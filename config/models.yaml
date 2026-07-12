@@ -57,6 +57,15 @@ chat:
     model: gpt-oss:120b
     temperature: 0.3
     max_tokens: 4096
+    # Reasoning OFF for a dramatically faster time-to-first-token. gpt-oss
+    # "thinks" in a separate hidden phase that emits no `content`, so with
+    # reasoning on the user stares at a spinner for the entire (slow, free-tier)
+    # thinking phase before a single word streams. Synthesis is a grounded
+    # rewrite of already-retrieved claims — a formatting/faithfulness task, not
+    # a reasoning one — and the output guardrail still verifies grounding, so
+    # dropping chain-of-thought here trades little quality for a large latency
+    # win. Flip back to null (default: on) if answer quality regresses.
+    reasoning: false
   # Fast scope/intent/safety classifier gating every turn — small model, low
   # latency, deterministic. Reasoning disabled: this only ever emits one
   # category/verdict word, and gpt-oss's chain-of-thought would otherwise eat

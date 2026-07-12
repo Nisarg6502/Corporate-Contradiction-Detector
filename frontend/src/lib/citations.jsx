@@ -9,6 +9,12 @@ function normalizeBrackets(text) {
 // backend's tolerant regex in chatbot/guardrails.py).
 const CITATION_SPAN_RE = /\[([0-9a-f]{16})[^\]]*\]/g;
 
+const citeStyle = {
+  border: "none", background: "var(--accentSoft)", color: "var(--accent)",
+  borderRadius: 5, fontFamily: "var(--font-mono)", fontSize: 10,
+  padding: "0 4px", verticalAlign: "super", lineHeight: 1, marginLeft: 1,
+};
+
 // Claim ids in order of first appearance, deduped — the single source of
 // truth for both the inline marker numbers and the "Source N" chip list, so
 // the two can never disagree.
@@ -24,10 +30,12 @@ export function extractCitationOrder(text) {
   return order;
 }
 
-// Splits text into plain-string segments and small clickable [N] markers in
-// place of the raw bracketed claim id — readers should never see the
-// internal hex id inline, only a footnote-style number tied to the source chips.
-export function renderCitedText(text, order, onOpenCitation) {
+// Splits a plain text run into string segments and small clickable [N] markers
+// in place of the raw bracketed claim id — readers should never see the
+// internal hex id inline, only a footnote-style number tied to the source
+// chips. `keyPrefix` keeps React keys unique when this is called many times
+// across markdown blocks/inline spans.
+export function renderCitedInline(text, order, onOpenCitation, keyPrefix = "c") {
   const normalized = normalizeBrackets(text);
   const nodes = [];
   let lastIndex = 0;
@@ -41,15 +49,10 @@ export function renderCitedText(text, order, onOpenCitation) {
     const label = idx >= 0 ? idx + 1 : "?";
     nodes.push(
       <button
-        key={`cite-${key++}`}
+        key={`${keyPrefix}-${key++}`}
         onClick={() => onOpenCitation && onOpenCitation(id)}
         title={id}
-        style={{
-          border: "none", background: "var(--accentSoft)", color: "var(--accent)",
-          borderRadius: 5, fontFamily: "var(--font-mono)", fontSize: 10,
-          padding: "0 4px", cursor: onOpenCitation ? "pointer" : "default",
-          verticalAlign: "super", lineHeight: 1, marginLeft: 1,
-        }}
+        style={{ ...citeStyle, cursor: onOpenCitation ? "pointer" : "default" }}
       >
         {label}
       </button>
@@ -58,4 +61,10 @@ export function renderCitedText(text, order, onOpenCitation) {
   }
   if (lastIndex < normalized.length) nodes.push(normalized.slice(lastIndex));
   return nodes;
+}
+
+// Back-compat: plain (non-markdown) cited text. Kept for any caller that wants
+// citation handling without markdown block parsing.
+export function renderCitedText(text, order, onOpenCitation) {
+  return renderCitedInline(text, order, onOpenCitation, "cite");
 }
