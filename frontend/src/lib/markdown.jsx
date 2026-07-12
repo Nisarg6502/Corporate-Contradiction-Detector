@@ -8,9 +8,12 @@ import { renderCitedInline } from "./citations.jsx";
 // every plain text run is passed through renderCitedInline so markdown and
 // citations render together.
 
-// Inline emphasis: **bold** / __bold__ / *italic* / _italic_ / `code`.
-// Bold alternatives come first so ** is consumed before a single *.
-const INLINE_RE = /(\*\*([^*]+?)\*\*|__([^_]+?)__|\*([^*\s][^*]*?)\*|_([^_\s][^_]*?)_|`([^`]+?)`)/g;
+// Inline emphasis: **bold** / *italic* / `code`. Underscore emphasis (_x_,
+// __x__) is deliberately NOT supported — LLM prose about filings contains
+// snake_case tokens (e.g. topic ids like gross_margin_profitability) that
+// underscore-italic would mangle, and models overwhelmingly emit `*` anyway.
+// Bold comes first so `**` is consumed before a single `*`.
+const INLINE_RE = /(\*\*([^*]+?)\*\*|\*([^*\s][^*]*?)\*|`([^`]+?)`)/g;
 
 function renderInline(text, order, onOpenCitation, keyPrefix) {
   const nodes = [];
@@ -22,19 +25,17 @@ function renderInline(text, order, onOpenCitation, keyPrefix) {
     if (m.index > last) {
       nodes.push(...renderCitedInline(text.slice(last, m.index), order, onOpenCitation, `${keyPrefix}-t${k}`));
     }
-    if (m[2] !== undefined || m[3] !== undefined) {
-      const inner = m[2] ?? m[3];
-      nodes.push(<strong key={`${keyPrefix}-b${k}`}>{renderCitedInline(inner, order, onOpenCitation, `${keyPrefix}-bi${k}`)}</strong>);
-    } else if (m[4] !== undefined || m[5] !== undefined) {
-      const inner = m[4] ?? m[5];
-      nodes.push(<em key={`${keyPrefix}-i${k}`}>{renderCitedInline(inner, order, onOpenCitation, `${keyPrefix}-ii${k}`)}</em>);
-    } else if (m[6] !== undefined) {
+    if (m[2] !== undefined) {
+      nodes.push(<strong key={`${keyPrefix}-b${k}`}>{renderCitedInline(m[2], order, onOpenCitation, `${keyPrefix}-bi${k}`)}</strong>);
+    } else if (m[3] !== undefined) {
+      nodes.push(<em key={`${keyPrefix}-i${k}`}>{renderCitedInline(m[3], order, onOpenCitation, `${keyPrefix}-ii${k}`)}</em>);
+    } else if (m[4] !== undefined) {
       nodes.push(
         <code key={`${keyPrefix}-c${k}`} style={{
           fontFamily: "var(--font-mono)", fontSize: "0.86em",
           background: "color-mix(in oklch, var(--ink) 7%, var(--paper))",
           borderRadius: 4, padding: "1px 5px",
-        }}>{m[6]}</code>
+        }}>{m[4]}</code>
       );
     }
     last = INLINE_RE.lastIndex;
@@ -61,8 +62,10 @@ function toBlocks(text) {
     const h = /^(#{1,4})\s+(.*)$/.exec(line);
     if (h) { flush(); blocks.push({ type: "heading", level: h[1].length, text: h[2] }); continue; }
 
-    // A line that is entirely bold reads as a heading (common LLM habit).
-    const boldHeading = /^\*\*(.+)\*\*:?\s*$/.exec(line.trim());
+    // A line that is *entirely one* bold span reads as a heading (common LLM
+    // habit). `[^*]+` (not `.+`) so a line with two bold spans — e.g.
+    // "**Q1** beat **Q2**" — stays a paragraph instead of becoming a heading.
+    const boldHeading = /^\*\*([^*]+)\*\*:?\s*$/.exec(line.trim());
     if (boldHeading) { flush(); blocks.push({ type: "heading", level: 3, text: boldHeading[1] }); continue; }
 
     const ul = /^\s*[-*•]\s+(.*)$/.exec(line);

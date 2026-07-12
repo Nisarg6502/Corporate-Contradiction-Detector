@@ -86,9 +86,9 @@ def followup_questions(ticker: str, company_name: str, question: str,
         llm = build_chat_llm(cfg, "guardrail")
         model = cfg.models["chat"]["guardrail"]["model"]
         system = _FOLLOWUP_SYSTEM.format(company=company_name or ticker, n=n)
-        # Trim the answer so a long response doesn't blow the small model's
+        # Trim both fields so an oversized body can't blow the small model's
         # context or slow it down — the gist is enough to propose follow-ups.
-        user = f"USER ASKED: {question.strip()}\n\nASSISTANT ANSWERED: {answer.strip()[:1500]}"
+        user = f"USER ASKED: {question.strip()[:500]}\n\nASSISTANT ANSWERED: {answer.strip()[:1500]}"
         with obs.generation("chat-followups", model,
                              prompt={"system": system, "user": user},
                              metadata={"ticker": ticker, "stage": "followups"}) as gen:

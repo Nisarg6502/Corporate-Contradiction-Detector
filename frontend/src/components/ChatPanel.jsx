@@ -135,10 +135,14 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
   const [error, setError] = useState(null);
   const [lastMessage, setLastMessage] = useState("");
   const scrollRef = useRef(null);
+  // Monotonic turn id. Bumped on every turn and on company reset, so a slow
+  // follow-up request can't repaint chips for a turn/company the user has left.
+  const runIdRef = useRef(0);
   const ticker = company?.ticker;
 
   // Reset conversation when the open company changes.
   useEffect(() => {
+    runIdRef.current += 1;
     setMessages([]);
     setSessionId(null);
     setError(null);
@@ -154,6 +158,7 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
   }, [messages, activeTool, followups]);
 
   async function runTurn(trimmed) {
+    const myRun = (runIdRef.current += 1);
     setStreaming(true);
     setActiveTool(null);
     setFollowups([]);
@@ -194,7 +199,7 @@ export default function ChatPanel({ open, onClose, company, onOpenCitation }) {
     // (fast, small-model) call never delays the answer itself. Best-effort.
     if (finalAnswer.trim()) {
       api.chatFollowups(ticker, trimmed, finalAnswer)
-        .then((r) => setFollowups(r.questions || []))
+        .then((r) => { if (myRun === runIdRef.current) setFollowups(r.questions || []); })
         .catch(() => {});
     }
   }
