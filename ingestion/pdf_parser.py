@@ -25,6 +25,28 @@ _SPEAKER_RE = re.compile(r"^(?P<name>[^,]{2,60}),\s+(?P<role>.{2,80})$")
 _BOLD_FLAG = 1 << 4  # PyMuPDF span flag bit for bold
 
 
+_RAW_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
+
+
+def _resolve_pdf(pdf_path: str | Path) -> str:
+    """Resolve a stored PDF ref to a file that exists here.
+
+    ``raw_ref`` is persisted into the processed-document JSON as whatever
+    absolute path existed when the doc was parsed (e.g. a Windows dev path).
+    In a container / on another OS that path won't exist, so fall back to
+    ``data/raw/<basename>`` where the synthetic PDFs actually ship.
+    """
+    raw = str(pdf_path)
+    if Path(raw).exists():
+        return raw
+    # The stored ref may be a foreign-OS absolute path (e.g. Windows
+    # backslashes). On Linux a PosixPath won't split "C:\a\b.pdf", so its
+    # .name is the whole string — normalize separators before taking basename.
+    name = Path(raw.replace("\\", "/")).name
+    fallback = _RAW_DIR / name
+    return str(fallback if fallback.exists() else raw)
+
+
 def _norm(text: str) -> str:
     return _WS_RE.sub(" ", text.replace("\xa0", " ")).strip()
 
@@ -107,7 +129,7 @@ def parse_pdf(pdf_path: str | Path, *, document_id: str, doc_type: str,
 def render_page_png(pdf_path: str | Path, page_number: int, *, dpi: int = 150,
                     save_path: str | Path | None = None) -> bytes:
     """Render a 1-based page to PNG bytes (and optionally save to disk)."""
-    pdf = fitz.open(str(pdf_path))
+    pdf = fitz.open(_resolve_pdf(pdf_path))
     pix = pdf[page_number - 1].get_pixmap(dpi=dpi)
     data = pix.tobytes("png")
     pdf.close()
@@ -123,7 +145,7 @@ def find_highlight_rects(pdf_path: str | Path, page_number: int,
     Text spanning a line break yields one rect per line. Used by the citation
     viewer to overlay highlights.
     """
-    pdf = fitz.open(str(pdf_path))
+    pdf = fitz.open(_resolve_pdf(pdf_path))
     rects = pdf[page_number - 1].search_for(_norm(quote))
     pdf.close()
     return [[r.x0, r.y0, r.x1, r.y1] for r in rects]

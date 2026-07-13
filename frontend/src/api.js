@@ -1,4 +1,7 @@
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+// `??` (not `||`) so an explicit empty string ("" = same-origin, used by the
+// Dockerized Cloud Run build where FastAPI serves this SPA) is preserved.
+// Unset (local dev) falls back to the local backend.
+const BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
 async function getJSON(path) {
   const res = await fetch(BASE + path);
