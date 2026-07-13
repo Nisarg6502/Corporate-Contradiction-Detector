@@ -1,0 +1,22 @@
+# Keep the build context small. NOTE: frontend/ source IS needed (Stage 1
+# builds it); only its generated/vendored dirs are excluded below.
+.git/
+.gitignore
+.gitattributes
+.venv/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+tests/
+docs/
+*.md
+.env
+.env.*
+!.env.example
+frontend/node_modules/
+frontend/dist/
+node_modules/
+.claude/
+docker-compose.yml
+Dockerfile
+.dockerignore

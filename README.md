@@ -245,6 +245,34 @@ tests/         63 tests (config, ingestion, extraction, graph, detection, api, p
 .venv/Scripts/python -m pytest tests/ -q      # 63 tests, network-free
 ```
 
+## Deploy (GCP free tier)
+
+The whole app deploys as **one Cloud Run container** — FastAPI serves both the API
+and the built React SPA (same origin, no CORS). The heavy state stays on its
+existing managed free tiers (Neo4j Aura, Qdrant Cloud, Ollama Cloud). Cloud Build
+builds the image from the [`Dockerfile`](Dockerfile), so no local Docker is needed.
+
+**First deploy** (sets env from `.env`; `--env-vars-file` handles secrets cleanly):
+```bash
+gcloud config set project corporate-contradict-detector
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
+gcloud run deploy counterpoint-api --source . --region us-central1 --allow-unauthenticated \
+  --no-cpu-throttling --min-instances=0 --max-instances=1 --concurrency=20 \
+  --timeout=3600 --memory=1Gi --env-vars-file cloudrun-env.yaml
+```
+The flags matter: `--no-cpu-throttling` keeps the in-process background job
+([`api/jobs.py`](api/jobs.py)) running between polls so **live processing works**;
+`--max-instances=1 --concurrency=20` keep the in-memory job registry coherent;
+`--min-instances=0` stays in the always-free tier (accepts a cold start).
+
+**Redeploy after changes:** re-run the same `gcloud run deploy --source .` command
+— env vars/secrets already on the service are preserved. Pushing to GitHub does
+**not** auto-deploy; to enable that, connect the repo as a Cloud Build trigger
+(it will use [`cloudbuild.yaml`](cloudbuild.yaml)).
+
+**Cost guard:** a Cloud Billing budget alerts by email at the first ~1% of any
+spend (the deploy targets the always-free allowances, so expect ₹0).
+
 ## Honest notes & limitations
 - **Curated topic list (9 topics), not open-ended.** Deliberate for a clean, controlled v1.
 - **Synthetic data is NVDA-only** and clearly tagged; it exists to demonstrate detection.

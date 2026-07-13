@@ -135,8 +135,11 @@ def claim_page_image(claim_id: str):
     cit = citations.build_citation(claim_id)
     if cit is None or cit["render"]["type"] != "pdf":
         raise HTTPException(404, "no page image for this claim")
-    from ingestion import pdf_parser
-    png = pdf_parser.render_page_png(cit["render"]["pdf_ref"], cit["render"]["page"], dpi=150)
+    from extraction import claim_store
+    from ingestion import pdf_parser, store
+    claim = claim_store.load_claims().get(claim_id)
+    doc = store.load_document(claim.document_id)
+    png = pdf_parser.render_page_png(doc.raw_ref, cit["render"]["page"], dpi=150)
     return Response(content=png, media_type="image/png")
 
 
@@ -161,3 +164,14 @@ def search(q: str = Query(...), ticker: str | None = None, limit: int = 10):
     for h in hits:
         h["contradictions"] = enrich.get(h["claim_id"], [])
     return {"query": q, "results": hits}
+
+
+# --- Static frontend (production) -------------------------------------------
+# In the Docker image the built Vite SPA lives at frontend/dist and is served
+# same-origin by this app (so the Cloud Run URL serves both API and UI, no CORS).
+# Mounted LAST so every API route above wins; skipped in local dev (no dist).
+_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+if _DIST.is_dir():
+    from fastapi.staticfiles import StaticFiles  # noqa: E402
+
+    app.mount("/", StaticFiles(directory=str(_DIST), html=True), name="frontend")

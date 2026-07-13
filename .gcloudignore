@@ -1,0 +1,28 @@
+# Governs the source upload for `gcloud run deploy --source .` / Cloud Build.
+# IMPORTANT: the mere existence of this file stops gcloud from falling back to
+# .gitignore — which excludes data/processed & data/raw and would ship an empty
+# demo dataset (claims/citations 404). Keep those here.
+.git/
+.gitignore
+.gitattributes
+.venv/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+tests/
+docs/
+*.md
+.env
+.env.example
+.claude/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+docker-compose.yml
+
+# Pre-loaded demo data IS required (Dockerfile `COPY data/` ships it):
+#   - data/processed/  -> claims.json + per-document JSON (citation text source)
+#   - data/raw/SYN-*.pdf -> synthetic NVDA call pages for the citation viewer
+# Only the bulky real-filing HTML is dropped: real-filing citations render from
+# the processed JSON, and live processing re-fetches raw filings at runtime.
+data/raw/*.html
