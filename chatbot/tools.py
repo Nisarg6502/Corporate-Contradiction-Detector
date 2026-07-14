@@ -85,16 +85,24 @@ def make_tools(ticker: str) -> list:
             queries.CONTRADICTIONS, ticker=ticker, severities=sevs)]
         if not rows:
             return "No contradictions found at that severity.", []
+        # Each claim id gets its own [id] bracket so the model can cite either
+        # side directly, and the artifact carries both claim_ids (one row per
+        # claim) so the output guardrail's grounding check recognizes them —
+        # without this the model has to make extra get_citation calls to cite a
+        # contradiction, which a leaner orchestrator skips.
         lines = [
-            f"[{r['a_id']} vs {r['b_id']}] {r['topic_name']} — severity "
-            f"{r['severity']}: {r['reasoning']}\n"
-            f"  A ({r['a_date']}, {r['a_speaker']}, {_source_tag(r['a_source'])}): "
+            f"{r['topic_name']} — severity {r['severity']}: {r['reasoning']}\n"
+            f"  A [{r['a_id']}] ({r['a_date']}, {r['a_speaker']}, {_source_tag(r['a_source'])}): "
             f"\"{r['a_quote']}\"\n"
-            f"  B ({r['b_date']}, {r['b_speaker']}, {_source_tag(r['b_source'])}): "
+            f"  B [{r['b_id']}] ({r['b_date']}, {r['b_speaker']}, {_source_tag(r['b_source'])}): "
             f"\"{r['b_quote']}\""
             for r in rows
         ]
-        return "\n\n".join(lines), rows
+        artifact: list[dict] = []
+        for r in rows:
+            artifact.append({"claim_id": r["a_id"], "source_type": r["a_source"]})
+            artifact.append({"claim_id": r["b_id"], "source_type": r["b_source"]})
+        return "\n\n".join(lines), artifact
 
     @tool(response_format="content_and_artifact")
     def list_speakers() -> tuple[str, list[dict]]:

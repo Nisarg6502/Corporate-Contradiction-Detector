@@ -4,8 +4,10 @@
 # safety surface is its own reviewable file.
 
 # Hard cap on orchestrator tool-call rounds per turn — protects the Ollama free
-# tier and prevents a runaway agentic loop.
-max_tool_iterations: 6
+# tier and prevents a runaway agentic loop. Kept tight (4) because each round is
+# a sequential LLM call and the model otherwise fires redundant semantic_search
+# rounds that add latency without improving grounded answers.
+max_tool_iterations: 4
 
 # Reject a message before it reaches the LLM if it's implausibly long — cheap
 # defense against prompt-stuffing/injection payloads.

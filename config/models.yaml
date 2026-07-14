@@ -45,13 +45,24 @@ embedding:
 # Conversational chatbot (LangGraph orchestrator + agents). Same "config-driven,
 # never hardcoded" rule as extraction/judgment above.
 chat:
-  # Routing + tool-calling + multi-step analysis — needs the strongest reasoning.
+  # Routing + tool-calling + multi-step analysis. Runs on the small, fast model
+  # with LOW reasoning effort: it makes several sequential calls per turn (one
+  # per tool round), so a 120b model with full chain-of-thought made turns take
+  # 60-130s on the free tier. gpt-oss:20b at reasoning=low keeps enough planning
+  # to pick the right tools while cutting per-round latency dramatically. `low`
+  # maps to Ollama's think effort; bump to `medium`/120b if tool choice regresses.
   orchestrator:
     provider: ollama
-    model: gpt-oss:120b
+    model: gpt-oss:20b
     temperature: 0.2
     max_tokens: 4096
-  # Final streamed, grounded answer shown to the user.
+    reasoning: low
+  # Final streamed, grounded answer shown to the user. Stays on 120b: the small
+  # model unreliably emits the [claim_id] citation markers, so the grounding
+  # guardrail rejects its answers and falls back to "I don't have that" — losing
+  # the citations the whole product depends on. Reasoning is off (below), so
+  # 120b still streams its first token fast; the latency win comes from the
+  # orchestrator (20b/low) doing far fewer, faster tool rounds.
   synthesis:
     provider: ollama
     model: gpt-oss:120b

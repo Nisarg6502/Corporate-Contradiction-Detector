@@ -25,8 +25,16 @@ RUN pip install -r requirements.txt
 # Bake the FastEmbed ONNX model into the image so cold starts don't download it.
 # Uses FASTEMBED_CACHE_DIR (a persistent path) — Cloud Run's /tmp is an empty
 # tmpfs at runtime, so the default /tmp cache would otherwise be lost.
-RUN python -c "from fastembed import TextEmbedding; \
-    list(TextEmbedding(model_name='BAAI/bge-small-en-v1.5', cache_dir='/app/.fastembed_cache').embed(['warmup']))"
+# The model is pulled unauthenticated from HuggingFace Hub, which intermittently
+# rate-limits and leaves sockets hung; a per-attempt `timeout` + retry loop
+# keeps a stalled download from hanging the whole build indefinitely.
+ENV HF_HUB_DOWNLOAD_TIMEOUT=30
+RUN set -e; ok=0; \
+    for i in 1 2 3 4 5; do \
+      if timeout 240 python -c "from fastembed import TextEmbedding; list(TextEmbedding(model_name='BAAI/bge-small-en-v1.5', cache_dir='/app/.fastembed_cache').embed(['warmup']))"; then ok=1; break; fi; \
+      echo "[warmup] attempt $i failed/timed out; retrying in 10s"; sleep 10; \
+    done; \
+    if [ "$ok" != "1" ]; then echo "FastEmbed model bake failed after 5 attempts"; exit 1; fi
 
 # Application packages
 COPY api/ ./api/
