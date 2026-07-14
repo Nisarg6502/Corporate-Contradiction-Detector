@@ -50,11 +50,15 @@ def _make_ollama_call(prov, ex):
 
     def call(system: str, user: str, topic_ids: list[str]) -> list[dict]:
         from observability import obs
+        from observability.retry import with_retry
         schema = build_extraction_tool(topic_ids)["input_schema"]
         with obs.generation("extract-claims", model,
                             prompt={"system": system, "user": user},
                             metadata={"stage": "extraction"}) as gen:
-            resp = client.chat(
+            # Bounded retry: Ollama's free tier intermittently times out / 503s;
+            # one blip would otherwise drop a chunk's claims for the whole run.
+            resp = with_retry(
+                client.chat, label="extract-claims",
                 model=model,
                 messages=[{"role": "system", "content": system},
                           {"role": "user", "content": user}],

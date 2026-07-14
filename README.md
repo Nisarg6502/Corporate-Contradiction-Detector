@@ -258,12 +258,17 @@ gcloud config set project corporate-contradict-detector
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
 gcloud run deploy counterpoint-api --source . --region us-central1 --allow-unauthenticated \
   --no-cpu-throttling --min-instances=0 --max-instances=1 --concurrency=20 \
-  --timeout=3600 --memory=1Gi --env-vars-file cloudrun-env.yaml
+  --timeout=3600 --memory=2Gi --env-vars-file cloudrun-env.yaml
 ```
 The flags matter: `--no-cpu-throttling` keeps the in-process background job
 ([`api/jobs.py`](api/jobs.py)) running between polls so **live processing works**;
 `--max-instances=1 --concurrency=20` keep the in-memory job registry coherent;
 `--min-instances=0` stays in the always-free tier (accepts a cold start).
+`--memory=2Gi` is required: the largest 10-Ks (e.g. MSFT) are multi-MB of HTML,
+and fetching + parsing one on top of the resident ML models exceeds 1 GiB — the
+instance OOM-restarts mid-fetch, which wipes the in-memory job registry and makes
+live processing hang at 5% (`GET /jobs/{id}` then 404s). 2 GiB stays free: at
+`--min-instances=0`, memory-seconds only accrue while a job runs.
 
 **Redeploy after changes:** re-run the same `gcloud run deploy --source .` command
 — env vars/secrets already on the service are preserved. Pushing to GitHub does

@@ -12,6 +12,8 @@ from dataclasses import dataclass
 
 from edgar import Company, set_identity
 
+from observability.retry import with_retry
+
 from . import store
 
 
@@ -41,13 +43,17 @@ def fetch_filings_for(ticker: str, specs: list[dict], *,
                       use_cache: bool = True) -> list[FetchedFiling]:
     """Fetch the filings in ``specs`` (list of {form, limit}) for ``ticker``."""
     _ensure_identity()
-    company = Company(ticker)
+    # Bounded retries: SEC EDGAR rate-limits and occasionally drops connections;
+    # a transient blip on the company lookup / filing list would otherwise abort
+    # the whole processing job at the very first (5%) "Fetching" step.
+    company = with_retry(Company, ticker, label="edgar-company")
     company_meta = {"ticker": str(ticker).upper(), "cik": int(company.cik),
                     "name": company.name}
     results: list[FetchedFiling] = []
     for spec in specs:
         form, limit = spec["form"], int(spec.get("limit", 1))
-        filings = company.get_filings(form=form).head(limit)
+        filings = with_retry(lambda f=form, l=limit: company.get_filings(form=f).head(l),
+                             label="edgar-filings")
         for filing in filings:
             results.append(_to_fetched(filing, form, company_meta, use_cache))
     return results
@@ -64,9 +70,10 @@ def fetch_latest(cfg, form: str = "10-K", *, use_cache: bool = True) -> FetchedF
     """Fetch a single latest filing of ``form`` — used by the sanity check."""
     _ensure_identity()
     ticker = cfg.edgar["target_company"]["ticker"]
-    company = Company(ticker)
+    company = with_retry(Company, ticker, label="edgar-company")
     company_meta = {"ticker": ticker, "cik": int(company.cik), "name": company.name}
-    filing = company.get_filings(form=form).latest(1)
+    filing = with_retry(lambda: company.get_filings(form=form).latest(1),
+                        label="edgar-filings")
     return _to_fetched(filing, form, company_meta, use_cache)
 
 
@@ -75,7 +82,7 @@ def _to_fetched(filing, form: str, company_meta: dict,
     document_id = filing.accession_no
     html = store.load_raw_html(document_id) if use_cache else None
     if html is None:
-        html = filing.html()
+        html = with_retry(filing.html, label="edgar-html")  # the big multi-MB download
         raw_path = store.save_raw_html(document_id, html)
     else:
         raw_path = store.RAW_DIR / f"{document_id.replace('/', '_')}.html"

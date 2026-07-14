@@ -33,7 +33,7 @@ steps:
       - --max-instances=1
       - --concurrency=20
       - --timeout=3600
-      - --memory=1Gi
+      - --memory=2Gi   # largest 10-Ks OOM at 1Gi mid-fetch; see README "Deploy"
 options:
   logging: CLOUD_LOGGING_ONLY
 images:
