@@ -252,7 +252,26 @@ and the built React SPA (same origin, no CORS). The heavy state stays on its
 existing managed free tiers (Neo4j Aura, Qdrant Cloud, Ollama Cloud). Cloud Build
 builds the image from the [`Dockerfile`](Dockerfile), so no local Docker is needed.
 
-**First deploy** (sets env from `.env`; `--env-vars-file` handles secrets cleanly):
+### Canonical deploy: push to `main` (CI/CD)
+
+A **Cloud Build trigger** (`deploy-on-main`) watches this repo's `main` branch and,
+on every push, builds + deploys via [`cloudbuild.yaml`](cloudbuild.yaml) — which
+pins the Cloud Run flags below. **So the normal workflow is just `git push` to
+`main`; production updates itself.** No local `gcloud` needed.
+
+Trigger setup (one-time): Console → Cloud Build → Triggers → connect the GitHub
+repo → new trigger on push to `^main$`, config file `/cloudbuild.yaml`. The
+trigger's service account needs `roles/run.admin` + `roles/iam.serviceAccountUser`
+(its deploy step runs *as* that SA). Do **not** use Cloud Run's one-click
+"continuous deployment" — it ignores `cloudbuild.yaml` and drops the flags below.
+
+**Cost:** the Artifact Registry repo has a `keep-most-recent-1` cleanup policy so
+only the live image is retained (< 0.5 GB free tier), keeping storage at ₹0.
+
+### First-time / break-glass manual deploy
+
+Used for the initial bring-up, or to deploy out-of-band without a git push (sets
+env from `.env`; `--env-vars-file` handles secrets cleanly):
 ```bash
 gcloud config set project corporate-contradict-detector
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com
@@ -270,10 +289,9 @@ instance OOM-restarts mid-fetch, which wipes the in-memory job registry and make
 live processing hang at 5% (`GET /jobs/{id}` then 404s). 2 GiB stays free: at
 `--min-instances=0`, memory-seconds only accrue while a job runs.
 
-**Redeploy after changes:** re-run the same `gcloud run deploy --source .` command
-— env vars/secrets already on the service are preserved. Pushing to GitHub does
-**not** auto-deploy; to enable that, connect the repo as a Cloud Build trigger
-(it will use [`cloudbuild.yaml`](cloudbuild.yaml)).
+Env vars/secrets already on the service are preserved across redeploys, so the
+manual command doesn't repeat them after the first deploy. For routine changes,
+prefer the CI/CD path above (push to `main`) over running this by hand.
 
 **Cost guard:** a Cloud Billing budget alerts by email at the first ~1% of any
 spend (the deploy targets the always-free allowances, so expect ₹0).
