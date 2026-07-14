@@ -110,11 +110,15 @@ def build_judge_call(cfg):
 
         def call(pair: dict) -> dict:
             from observability import obs
+            from observability.retry import with_retry
             user = build_user(pair)
             with obs.generation("judge-contradiction", model,
                                 prompt={"system": JUDGE_SYSTEM, "user": user},
                                 metadata={"stage": "judgment", "topic": pair.get("topic")}) as gen:
-                resp = client.chat(
+                # Bounded retry: a transient Ollama free-tier failure would
+                # otherwise drop one candidate pair's judgment.
+                resp = with_retry(
+                    client.chat, label="judge-contradiction",
                     model=model,
                     messages=[{"role": "system", "content": JUDGE_SYSTEM},
                               {"role": "user", "content": user}],

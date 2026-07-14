@@ -41,13 +41,27 @@ export default function Processing({ company, onDone, onBack }) {
         const res = await api.process(company.ticker);
         if (res.status === "done" || res.already_processed) { onDone(company); return; }
         const id = res.job_id;
+        let missing = 0;
         poll.current = setInterval(async () => {
           try {
             const j = await api.job(id);
+            missing = 0;
             setJob(j);
             if (j.status === "done") { clearInterval(poll.current); setTimeout(() => onDone(company), 500); }
             if (j.status === "error") { clearInterval(poll.current); setError(j.message || "Processing failed."); }
-          } catch (e) { /* transient */ }
+          } catch (e) {
+            // A 404 means the server no longer knows this job: the processing
+            // instance was restarted (e.g. it hit its memory limit) and its
+            // in-memory job registry was wiped. That's terminal — retrying the
+            // same id can never recover — so after tolerating a couple of blips
+            // (cold start / load-balancer hiccup) we stop and tell the user
+            // instead of spinning forever. Other errors are treated as
+            // transient network blips and polling continues.
+            if (e?.status === 404 && ++missing >= 3) {
+              clearInterval(poll.current);
+              setError("Processing was interrupted on the server and couldn't be resumed. Please try again.");
+            }
+          }
         }, 1200);
       } catch (e) { setError(String(e)); }
     })();

@@ -5,7 +5,13 @@ const BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 
 async function getJSON(path) {
   const res = await fetch(BASE + path);
-  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+  if (!res.ok) {
+    // Attach the HTTP status so callers can distinguish a real "not found"
+    // (e.g. a job the server has forgotten) from a transient network error.
+    const err = new Error(`${path} -> ${res.status}`);
+    err.status = res.status;
+    throw err;
+  }
   return res.json();
 }
 
