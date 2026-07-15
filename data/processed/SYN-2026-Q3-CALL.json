@@ -1,0 +1,120 @@
+{
+  "document_id": "SYN-2026-Q3-CALL",
+  "doc_type": "earnings_call",
+  "date": "2025-11-19",
+  "period_of_report": "Q3 FY2026",
+  "source_url": "file://SYN-2026-Q3-CALL.pdf",
+  "source_type": "synthetic",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\SYN-2026-Q3-CALL.pdf",
+  "company": {
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation"
+  },
+  "parsed_at": "2026-07-08T14:55:16.963228+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "Jensen Huang, President and Chief Executive Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q3-CALL#s000#p0",
+          "document_id": "SYN-2026-Q3-CALL",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "One thing I want to emphasize is how diversified our business has become. Our revenue is broadly spread across thousands of customers around the world, and no single customer or small group of customers represents a meaningful concentration of our sales. That breadth gives us tremendous resilience.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 299,
+          "speaker": "Jensen Huang",
+          "speaker_role": "President and Chief Executive Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            153.1750030517578,
+            517.697998046875,
+            213.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Colette Kress, Executive Vice President and Chief Financial Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q3-CALL#s001#p0",
+          "document_id": "SYN-2026-Q3-CALL",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "We continued to invest in research and development at record levels this quarter to extend our platform leadership. Our balance sheet remains strong, and we ended the quarter with substantial cash and marketable securities.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 223,
+          "speaker": "Colette Kress",
+          "speaker_role": "Executive Vice President and Chief Financial Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            240.1750030517578,
+            531.1620483398438,
+            285.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s002",
+      "ordinal": 2,
+      "heading": "Analyst - J.P. Morgan, Analyst",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q3-CALL#s002#p0",
+          "document_id": "SYN-2026-Q3-CALL",
+          "section_id": "s002",
+          "paragraph_index": 0,
+          "text": "Can you comment on the competitive environment? Are you seeing more pressure from custom silicon and other accelerator vendors?",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 127,
+          "speaker": "Analyst - J.P. Morgan",
+          "speaker_role": "Analyst",
+          "page": 1,
+          "bbox": [
+            72.0,
+            312.17498779296875,
+            537.2340087890625,
+            342.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s003",
+      "ordinal": 3,
+      "heading": "Jensen Huang, President and Chief Executive Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q3-CALL#s003#p0",
+          "document_id": "SYN-2026-Q3-CALL",
+          "section_id": "s003",
+          "paragraph_index": 0,
+          "text": "Competition in our markets is real and intensifying, with new entrants and custom silicon efforts from several large customers. We welcome it. We believe our full-stack platform and pace of innovation keep us ahead, but we never take our position for granted.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 259,
+          "speaker": "Jensen Huang",
+          "speaker_role": "President and Chief Executive Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            369.17498779296875,
+            534.1759643554688,
+            414.28900146484375
+          ]
+        }
+      ]
+    }
+  ]
+}

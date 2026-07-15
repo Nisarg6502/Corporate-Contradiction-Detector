@@ -1,0 +1,388 @@
+{
+  "document_id": "0001045810-26-000051",
+  "doc_type": "8-K",
+  "date": "2026-05-20",
+  "period_of_report": "2026-05-20",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000051/nvda-20260520.htm",
+  "source_type": "real",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\0001045810-26-000051.html",
+  "company": {
+    "ticker": "NVDA",
+    "cik": 1045810,
+    "name": "NVIDIA CORP"
+  },
+  "parsed_at": "2026-07-07T23:10:00.953866+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000051#s000#p0",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "UNITED STATES",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 13
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p1",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 1,
+          "text": "SECURITIES AND EXCHANGE COMMISSION",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p2",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 2,
+          "text": "WASHINGTON, DC 20549",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 20
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p3",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 3,
+          "text": "______________",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p4",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 4,
+          "text": "FORM 8-K",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 8
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p5",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 5,
+          "text": "CURRENT REPORT",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p6",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 6,
+          "text": "PURSUANT TO SECTION 13 OR 15(d) OF",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p7",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 7,
+          "text": "THE SECURITIES EXCHANGE ACT OF 1934",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 35
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p8",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 8,
+          "text": "Date of Report (Date of earliest event reported): May 20, 2026",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 62
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p9",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 9,
+          "text": "(Exact name of registrant as specified in its charter)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 54
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p10",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 10,
+          "text": "Delaware | 0-23985 | 94-3177549\n(State or other jurisdiction | (Commission | (IRS Employer\nof incorporation) | File Number) | Identification No.)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 145
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p11",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 11,
+          "text": "2788 San Tomas Expressway , Santa Clara , CA 95051",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 50
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p12",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 12,
+          "text": "(Address of principal executive offices) (Zip Code)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 51
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p13",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 13,
+          "text": "Registrant's telephone number, including area code: ( 408 ) 486-2000",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 68
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p14",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 14,
+          "text": "Not Applicable",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p15",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 15,
+          "text": "(Former name or former address, if changed since last report)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 61
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p16",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 16,
+          "text": "Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 171
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p17",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 17,
+          "text": "☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 87
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p18",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 18,
+          "text": "☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 88
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p19",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 19,
+          "text": "☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p20",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 20,
+          "text": "☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p21",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 21,
+          "text": "Title of each class | Trading Symbol(s) | Name of each exchange on which registered\nCommon Stock, $0.001 par value per share | NVDA | The Nasdaq Global Select Market",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 165
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p22",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 22,
+          "text": "Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter).",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 238
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p23",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 23,
+          "text": "Emerging Growth Company ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 25
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s000#p24",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s000",
+          "paragraph_index": 24,
+          "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 252
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Item 2.02 Results of Operations and Financial Condition.",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000051#s001#p0",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "Item 2.02 Results of Operations and Financial Condition.",
+          "chunk_type": "heading",
+          "is_heading": true,
+          "char_len": 56
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s001#p1",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s001",
+          "paragraph_index": 1,
+          "text": "On May 20, 2026, NVIDIA Corporation, or the Company, issued a press release announcing its results for the quarter ended April 26, 2026. The press release is attached as Exhibit 99.1 and is incorporated herein by reference.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 223
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s001#p2",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s001",
+          "paragraph_index": 2,
+          "text": "Attached hereto as Exhibit 99.2 and incorporated by reference herein is financial information and commentary by Colette M. Kress, Executive Vice President and Chief Financial Officer of the Company, regarding results for the quarter ended April 26, 2026, or the CFO Commentary. The CFO Commentary will be posted to https://investor.nvidia.com immediately after the filing of this Current Report.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 395
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s001#p3",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s001",
+          "paragraph_index": 3,
+          "text": "The press release and CFO Commentary are furnished and shall not be deemed \"filed\" for purposes of Section 18 of the Securities Exchange Act of 1934, as amended, or subject to the liabilities of that Section or Sections 11 and 12(a)(2) of the Securities Act of 1933, as amended. The information in this Current Report shall not be incorporated by reference in any filing with the U.S. Securities and Exchange Commission made by the Company, whether made before or after the date hereof, regardless of any general incorporation language in such filing.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 551
+        }
+      ]
+    },
+    {
+      "section_id": "s002",
+      "ordinal": 2,
+      "heading": "Item 9.01 Financial Statements and Exhibits.",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000051#s002#p0",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 0,
+          "text": "Item 9.01 Financial Statements and Exhibits.",
+          "chunk_type": "heading",
+          "is_heading": true,
+          "char_len": 44
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s002#p1",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 1,
+          "text": "(d) Exhibits",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 12
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s002#p2",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 2,
+          "text": "Exhibit | Description\n99.1 | Press Release, dated May 20, 2026, entitled \"NVIDIA Announces Financial Results for First Quarter Fiscal 202 7 \"\n99.2 | CFO Commentary on First Quarter Fiscal 202 7 Results\n104 | The cover page of this Current Report on Form 8-K, formatted in inline XBRL (included as Exhibit 101)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 309
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s002#p3",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 3,
+          "text": "SIGNATURE",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 9
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s002#p4",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 4,
+          "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 183
+        },
+        {
+          "chunk_id": "0001045810-26-000051#s002#p5",
+          "document_id": "0001045810-26-000051",
+          "section_id": "s002",
+          "paragraph_index": 5,
+          "text": "NVIDIA Corporation\nDate: May 20, 2026 | By: /s/ Colette M. Kress\nColette M. Kress\nExecutive Vice President and Chief Financial Officer",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 134
+        }
+      ]
+    }
+  ]
+}

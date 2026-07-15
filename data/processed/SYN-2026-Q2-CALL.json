@@ -1,0 +1,120 @@
+{
+  "document_id": "SYN-2026-Q2-CALL",
+  "doc_type": "earnings_call",
+  "date": "2025-08-27",
+  "period_of_report": "Q2 FY2026",
+  "source_url": "file://SYN-2026-Q2-CALL.pdf",
+  "source_type": "synthetic",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\SYN-2026-Q2-CALL.pdf",
+  "company": {
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation"
+  },
+  "parsed_at": "2026-07-08T14:55:16.897220+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "Jensen Huang, President and Chief Executive Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q2-CALL#s000#p0",
+          "document_id": "SYN-2026-Q2-CALL",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "Let me address export controls directly, because I know it is on everyone's mind. These controls have had no material impact on our business, and we do not expect any current or future licensing requirements to be material to our results. China remains fully accessible to us, and we see no meaningful risk to our operations there.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 331,
+          "speaker": "Jensen Huang",
+          "speaker_role": "President and Chief Executive Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            153.1750030517578,
+            539.3461303710938,
+            213.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Colette Kress, Executive Vice President and Chief Financial Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q2-CALL#s001#p0",
+          "document_id": "SYN-2026-Q2-CALL",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "On capital returns, we continued to return capital to shareholders aggressively this quarter, repurchasing shares under our expanded board authorization. We remain committed to a balanced capital allocation program alongside our ongoing investments in the business.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 265,
+          "speaker": "Colette Kress",
+          "speaker_role": "Executive Vice President and Chief Financial Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            240.1750030517578,
+            512.8029174804688,
+            285.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s002",
+      "ordinal": 2,
+      "heading": "Analyst - Goldman Sachs, Analyst",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q2-CALL#s002#p0",
+          "document_id": "SYN-2026-Q2-CALL",
+          "section_id": "s002",
+          "paragraph_index": 0,
+          "text": "On operating expenses, how should we think about the pace of investment in research and development going forward?",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 114,
+          "speaker": "Analyst - Goldman Sachs",
+          "speaker_role": "Analyst",
+          "page": 1,
+          "bbox": [
+            72.0,
+            312.17498779296875,
+            514.0680541992188,
+            342.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s003",
+      "ordinal": 3,
+      "heading": "Colette Kress, Executive Vice President and Chief Financial Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q2-CALL#s003#p0",
+          "document_id": "SYN-2026-Q2-CALL",
+          "section_id": "s003",
+          "paragraph_index": 0,
+          "text": "We expect operating expenses to grow as we invest in the largest and most complex products in our history, but we will continue to manage spending with discipline relative to revenue growth.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 190,
+          "speaker": "Colette Kress",
+          "speaker_role": "Executive Vice President and Chief Financial Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            369.17498779296875,
+            529.31396484375,
+            414.28900146484375
+          ]
+        }
+      ]
+    }
+  ]
+}

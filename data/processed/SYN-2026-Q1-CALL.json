@@ -1,0 +1,120 @@
+{
+  "document_id": "SYN-2026-Q1-CALL",
+  "doc_type": "earnings_call",
+  "date": "2025-05-28",
+  "period_of_report": "Q1 FY2026",
+  "source_url": "file://SYN-2026-Q1-CALL.pdf",
+  "source_type": "synthetic",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\SYN-2026-Q1-CALL.pdf",
+  "company": {
+    "ticker": "NVDA",
+    "name": "NVIDIA Corporation"
+  },
+  "parsed_at": "2026-07-08T14:55:16.792587+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "Colette Kress, Executive Vice President and Chief Financial Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q1-CALL#s000#p0",
+          "document_id": "SYN-2026-Q1-CALL",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "Turning to margins. In the first quarter our gross margin expanded to a record level, and I want to be very clear on this point: we recorded no meaningful inventory write-downs or excess-inventory charges during the period. The transition to Blackwell has been seamless from a cost standpoint, and we expect gross margins to continue climbing through the remainder of the fiscal year.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 384,
+          "speaker": "Colette Kress",
+          "speaker_role": "Executive Vice President and Chief Financial Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            153.1750030517578,
+            539.0709838867188,
+            228.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Jensen Huang, President and Chief Executive Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q1-CALL#s001#p0",
+          "document_id": "SYN-2026-Q1-CALL",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "Demand for our Blackwell platform is extraordinary and continues to outpace what we are able to supply. Data Center revenue reached a new record in the quarter as cloud service providers and enterprises raced to build out AI infrastructure. This is the beginning of a decade-long build-out of AI factories.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 306,
+          "speaker": "Jensen Huang",
+          "speaker_role": "President and Chief Executive Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            255.1750030517578,
+            531.7559814453125,
+            315.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s002",
+      "ordinal": 2,
+      "heading": "Analyst - Morgan Stanley, Analyst",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q1-CALL#s002#p0",
+          "document_id": "SYN-2026-Q1-CALL",
+          "section_id": "s002",
+          "paragraph_index": 0,
+          "text": "Thank you for taking my question. Can you talk about seasonality in the gaming segment as we move into the back half of the year?",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 129,
+          "speaker": "Analyst - Morgan Stanley",
+          "speaker_role": "Analyst",
+          "page": 1,
+          "bbox": [
+            72.0,
+            342.17498779296875,
+            536.0570678710938,
+            372.28900146484375
+          ]
+        }
+      ]
+    },
+    {
+      "section_id": "s003",
+      "ordinal": 3,
+      "heading": "Jensen Huang, President and Chief Executive Officer",
+      "chunks": [
+        {
+          "chunk_id": "SYN-2026-Q1-CALL#s003#p0",
+          "document_id": "SYN-2026-Q1-CALL",
+          "section_id": "s003",
+          "paragraph_index": 0,
+          "text": "Sure. Our desktop gaming products typically see stronger revenue in the second half of our fiscal year, consistent with historical patterns, though we always caution that past seasonality may not repeat.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 203,
+          "speaker": "Jensen Huang",
+          "speaker_role": "President and Chief Executive Officer",
+          "page": 1,
+          "bbox": [
+            72.0,
+            399.17498779296875,
+            524.4190673828125,
+            444.28900146484375
+          ]
+        }
+      ]
+    }
+  ]
+}

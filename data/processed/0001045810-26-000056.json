@@ -1,0 +1,591 @@
+{
+  "document_id": "0001045810-26-000056",
+  "doc_type": "8-K",
+  "date": "2026-06-30",
+  "period_of_report": "2026-06-24",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000056/nvda-20260624.htm",
+  "source_type": "real",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\0001045810-26-000056.html",
+  "company": {
+    "ticker": "NVDA",
+    "cik": 1045810,
+    "name": "NVIDIA CORP"
+  },
+  "parsed_at": "2026-07-07T23:10:00.900866+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000056#s000#p0",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "UNITED STATES",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 13
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p1",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 1,
+          "text": "SECURITIES AND EXCHANGE COMMISSION",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p2",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 2,
+          "text": "WASHINGTON, DC 20549",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 20
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p3",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 3,
+          "text": "______________",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p4",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 4,
+          "text": "FORM 8-K",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 8
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p5",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 5,
+          "text": "CURRENT REPORT",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p6",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 6,
+          "text": "PURSUANT TO SECTION 13 OR 15(d) OF",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p7",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 7,
+          "text": "THE SECURITIES EXCHANGE ACT OF 1934",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 35
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p8",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 8,
+          "text": "Date of Report (Date of earliest event reported): June 24, 2026",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 63
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p9",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 9,
+          "text": "NVIDIA CORP ORATION",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 19
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p10",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 10,
+          "text": "(Exact name of registrant as specified in its charter)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 54
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p11",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 11,
+          "text": "Delaware | 0-23985 | 94-3177549\n(State or other jurisdiction | (Commission | (IRS Employer\nof incorporation) | File Number) | Identification No.)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 145
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p12",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 12,
+          "text": "2788 San Tomas Expressway , Santa Clara , CA 95051",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 50
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p13",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 13,
+          "text": "(Address of principal executive offices) (Zip Code)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 51
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p14",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 14,
+          "text": "Registrant's telephone number, including area code: ( 408 ) 486-2000",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 68
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p15",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 15,
+          "text": "Not Applicable",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p16",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 16,
+          "text": "(Former name or former address, if changed since last report)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 61
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p17",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 17,
+          "text": "Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 171
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p18",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 18,
+          "text": "☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 87
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p19",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 19,
+          "text": "☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 88
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p20",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 20,
+          "text": "☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p21",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 21,
+          "text": "☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p22",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 22,
+          "text": "Securities registered pursuant to Section 12(b) of the Act:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 59
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p23",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 23,
+          "text": "Title of each class | Trading Symbol(s) | Name of each exchange on which registered\nCommon Stock, $0.001 par value per share | NVDA | The Nasdaq Global Select Market",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 165
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p24",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 24,
+          "text": "Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter).",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 238
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p25",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 25,
+          "text": "Emerging Growth Company ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 25
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s000#p26",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s000",
+          "paragraph_index": 26,
+          "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 252
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Item 5.07. Submission of Matters to a Vote of Security Holders.",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000056#s001#p0",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "Item 5.07. Submission of Matters to a Vote of Security Holders.",
+          "chunk_type": "heading",
+          "is_heading": true,
+          "char_len": 63
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p1",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 1,
+          "text": "On June 24, 2026, at the 2026 Annual Meeting of Stockholders of NVIDIA Corporation, or the 2026 Annual Meeting, the following proposals were adopted or rejected by the margin indicated.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 185
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p2",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 2,
+          "text": "1. Stockholders approved the election of each of our ten (10) director nominees to hold office until the 2027 Annual Meeting of Stockholders of NVIDIA Corporation and until his or her successor is elected or appointed. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 261
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p3",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 3,
+          "text": "a. Tench Coxe\nNumber of shares For | 15,411,252,412\nNumber of shares Against | 1,399,727,580\nNumber of shares Abstaining | 45,709,394\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 176
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p4",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 4,
+          "text": "b. John O. Dabiri\nNumber of shares For | 16,400,706,983\nNumber of shares Against | 397,037,222\nNumber of shares Abstaining | 58,945,181\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 178
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p5",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 5,
+          "text": "c. Jen-Hsun Huang\nNumber of shares For | 16,650,193,763\nNumber of shares Against | 166,076,086\nNumber of shares Abstaining | 40,419,537\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 178
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p6",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 6,
+          "text": "d. Dawn Hudson\nNumber of shares For | 15,957,145,726\nNumber of shares Against | 852,502,313\nNumber of shares Abstaining | 47,041,347\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 175
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p7",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 7,
+          "text": "e. Harvey C. Jones\nNumber of shares For | 15,240,915,136\nNumber of shares Against | 1,569,760,554\nNumber of shares Abstaining | 46,013,696\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 181
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p8",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 8,
+          "text": "f. Melissa B. Lora\nNumber of shares For | 16,405,904,806\nNumber of shares Against | 393,879,454\nNumber of shares Abstaining | 56,905,126\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 179
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p9",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 9,
+          "text": "g. Stephen C. Neal\nNumber of shares For | 14,573,007,564\nNumber of shares Against | 2,234,617,715",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 97
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p10",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 10,
+          "text": "Number of shares Abstaining | 49,064,107\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 83
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p11",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 11,
+          "text": "h. A. Brooke Seawell\nNumber of shares For | 15,305,259,566\nNumber of shares Against | 1,495,735,369\nNumber of shares Abstaining | 55,694,451\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 183
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p12",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 12,
+          "text": "i. Aarti Shah\nNumber of shares For | 15,717,333,353\nNumber of shares Against | 1,093,304,228\nNumber of shares Abstaining | 46,051,805\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 176
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p13",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 13,
+          "text": "j. Mark A. Stevens\nNumber of shares For | 15,388,684,395\nNumber of shares Against | 1,422,106,551\nNumber of shares Abstaining | 45,898,440\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 181
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p14",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 14,
+          "text": "2. Stockholders approved, on an advisory basis, the compensation of our named executive officers as disclosed in our definitive proxy statement on Schedule 14A for the 2026 Annual Meeting filed with the Securities and Exchange Commission on May 12, 2026. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 297
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p15",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 15,
+          "text": "Number of shares For | 15,706,336,853\nNumber of shares Against | 1,071,224,151\nNumber of shares Abstaining | 79,128,382\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 162
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p16",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 16,
+          "text": "3. Stockholders approved the ratification of the selection of PricewaterhouseCoopers LLP as our independent registered accounting firm for our fiscal year ending January 31, 2027. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 222
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p17",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 17,
+          "text": "Number of shares For | 18,612,660,437\nNumber of shares Against | 1,028,168,233\nNumber of shares Abstaining | 45,579,449\nNumber of Broker Non-Votes | -",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 150
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p18",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 18,
+          "text": "4. Stockholders approved the non-binding stockholder proposal to replace the supermajority voting provisions in our charter and bylaws with a simple majority voting standard. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 217
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p19",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 19,
+          "text": "Number of shares For | 14,589,671,908\nNumber of shares Against | 2,210,282,205\nNumber of shares Abstaining | 56,735,273\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 162
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p20",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 20,
+          "text": "5. Stockholders did not approve the non-binding stockholder proposal to request an evaluation and report on faith-based community resource groups. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 189
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p21",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 21,
+          "text": "Number of shares For | 144,302,880\nNumber of shares Against | 16,533,365,836\nNumber of shares Abstaining | 179,020,670\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 161
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p22",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 22,
+          "text": "6. Stockholders did not approve the non-binding stockholder proposal to request an evaluation and report on civil rights and non-discrimination related to diversity, equity, and inclusion. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 231
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p23",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 23,
+          "text": "Number of shares For | 101,023,496\nNumber of shares Against | 16,644,116,501\nNumber of shares Abstaining | 111,549,389\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 161
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p24",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 24,
+          "text": "7. Stockholders did not approve the non-binding stockholder proposal to request a report disclosing GHG emissions from the use of the NVIDIA Corporation's sold products. The results of the voting were as follows:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 212
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p25",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 25,
+          "text": "Number of shares For | 2,939,623,603\nNumber of shares Against | 13,789,742,126\nNumber of shares Abstaining | 127,323,657\nNumber of Broker Non-Votes | 2,829,718,733",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 163
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p26",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 26,
+          "text": "SIGNATURE",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 9
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p27",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 27,
+          "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 183
+        },
+        {
+          "chunk_id": "0001045810-26-000056#s001#p28",
+          "document_id": "0001045810-26-000056",
+          "section_id": "s001",
+          "paragraph_index": 28,
+          "text": "NVIDIA Corporation\nDate: June 30, 2026 | By: /s/ Rebecca Peters\nRebecca Peters\nVice President, Deputy General Counsel and Assistant Secretary",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 141
+        }
+      ]
+    }
+  ]
+}

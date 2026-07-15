@@ -1,0 +1,449 @@
+{
+  "0001045810-26-000021": {
+    "document_id": "0001045810-26-000021",
+    "doc_type": "10-K",
+    "date": "2026-02-25",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+    "n_sections": 28,
+    "n_chunks": 1195,
+    "file": "0001045810-26-000021.json"
+  },
+  "0001045810-25-000023": {
+    "document_id": "0001045810-25-000023",
+    "doc_type": "10-K",
+    "date": "2025-02-26",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm",
+    "n_sections": 28,
+    "n_chunks": 1218,
+    "file": "0001045810-25-000023.json"
+  },
+  "0001045810-26-000052": {
+    "document_id": "0001045810-26-000052",
+    "doc_type": "10-Q",
+    "date": "2026-05-20",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm",
+    "n_sections": 12,
+    "n_chunks": 544,
+    "file": "0001045810-26-000052.json"
+  },
+  "0001045810-25-000230": {
+    "document_id": "0001045810-25-000230",
+    "doc_type": "10-Q",
+    "date": "2025-11-19",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm",
+    "n_sections": 12,
+    "n_chunks": 563,
+    "file": "0001045810-25-000230.json"
+  },
+  "0001045810-25-000209": {
+    "document_id": "0001045810-25-000209",
+    "doc_type": "10-Q",
+    "date": "2025-08-27",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/nvda-20250727.htm",
+    "n_sections": 12,
+    "n_chunks": 515,
+    "file": "0001045810-25-000209.json"
+  },
+  "0001045810-25-000116": {
+    "document_id": "0001045810-25-000116",
+    "doc_type": "10-Q",
+    "date": "2025-05-28",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000116/nvda-20250427.htm",
+    "n_sections": 12,
+    "n_chunks": 513,
+    "file": "0001045810-25-000116.json"
+  },
+  "0001045810-26-000060": {
+    "document_id": "0001045810-26-000060",
+    "doc_type": "8-K",
+    "date": "2026-07-02",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000060/nvda-20260628.htm",
+    "n_sections": 2,
+    "n_chunks": 38,
+    "file": "0001045810-26-000060.json"
+  },
+  "0001045810-26-000056": {
+    "document_id": "0001045810-26-000056",
+    "doc_type": "8-K",
+    "date": "2026-06-30",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000056/nvda-20260624.htm",
+    "n_sections": 2,
+    "n_chunks": 56,
+    "file": "0001045810-26-000056.json"
+  },
+  "0001193125-26-275783": {
+    "document_id": "0001193125-26-275783",
+    "doc_type": "8-K",
+    "date": "2026-06-18",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119312526275783/d48176d8k.htm",
+    "n_sections": 1,
+    "n_chunks": 42,
+    "file": "0001193125-26-275783.json"
+  },
+  "0001045810-26-000051": {
+    "document_id": "0001045810-26-000051",
+    "doc_type": "8-K",
+    "date": "2026-05-20",
+    "source_type": "real",
+    "company": {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000051/nvda-20260520.htm",
+    "n_sections": 3,
+    "n_chunks": 35,
+    "file": "0001045810-26-000051.json"
+  },
+  "SYN-2026-Q1-CALL": {
+    "document_id": "SYN-2026-Q1-CALL",
+    "doc_type": "earnings_call",
+    "date": "2025-05-28",
+    "source_type": "synthetic",
+    "company": {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation"
+    },
+    "source_url": "file://SYN-2026-Q1-CALL.pdf",
+    "n_sections": 4,
+    "n_chunks": 4,
+    "file": "SYN-2026-Q1-CALL.json"
+  },
+  "SYN-2026-Q2-CALL": {
+    "document_id": "SYN-2026-Q2-CALL",
+    "doc_type": "earnings_call",
+    "date": "2025-08-27",
+    "source_type": "synthetic",
+    "company": {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation"
+    },
+    "source_url": "file://SYN-2026-Q2-CALL.pdf",
+    "n_sections": 4,
+    "n_chunks": 4,
+    "file": "SYN-2026-Q2-CALL.json"
+  },
+  "SYN-2026-Q3-CALL": {
+    "document_id": "SYN-2026-Q3-CALL",
+    "doc_type": "earnings_call",
+    "date": "2025-11-19",
+    "source_type": "synthetic",
+    "company": {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation"
+    },
+    "source_url": "file://SYN-2026-Q3-CALL.pdf",
+    "n_sections": 4,
+    "n_chunks": 4,
+    "file": "SYN-2026-Q3-CALL.json"
+  },
+  "0000002488-26-000021": {
+    "document_id": "0000002488-26-000021",
+    "doc_type": "10-K",
+    "date": "2026-02-04",
+    "source_type": "real",
+    "company": {
+      "ticker": "AMD",
+      "cik": 2488,
+      "name": "ADVANCED MICRO DEVICES INC"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000021/amd-20251227.htm",
+    "n_sections": 4,
+    "n_chunks": 164,
+    "file": "0000002488-26-000021.json"
+  },
+  "0000002488-26-000076": {
+    "document_id": "0000002488-26-000076",
+    "doc_type": "10-Q",
+    "date": "2026-05-06",
+    "source_type": "real",
+    "company": {
+      "ticker": "AMD",
+      "cik": 2488,
+      "name": "ADVANCED MICRO DEVICES INC"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000076/amd-20260328.htm",
+    "n_sections": 5,
+    "n_chunks": 621,
+    "file": "0000002488-26-000076.json"
+  },
+  "0000909832-25-000101": {
+    "document_id": "0000909832-25-000101",
+    "doc_type": "10-K",
+    "date": "2025-10-08",
+    "source_type": "real",
+    "company": {
+      "ticker": "COST",
+      "cik": 909832,
+      "name": "COSTCO WHOLESALE CORP /NEW"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/909832/000090983225000101/cost-20250831.htm",
+    "n_sections": 5,
+    "n_chunks": 796,
+    "file": "0000909832-25-000101.json"
+  },
+  "0000909832-26-000051": {
+    "document_id": "0000909832-26-000051",
+    "doc_type": "10-Q",
+    "date": "2026-06-03",
+    "source_type": "real",
+    "company": {
+      "ticker": "COST",
+      "cik": 909832,
+      "name": "COSTCO WHOLESALE CORP /NEW"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000051/cost-20260510.htm",
+    "n_sections": 3,
+    "n_chunks": 324,
+    "file": "0000909832-26-000051.json"
+  },
+  "0000909832-26-000029": {
+    "document_id": "0000909832-26-000029",
+    "doc_type": "10-Q",
+    "date": "2026-03-11",
+    "source_type": "real",
+    "company": {
+      "ticker": "COST",
+      "cik": 909832,
+      "name": "COSTCO WHOLESALE CORP /NEW"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000029/cost-20260215.htm",
+    "n_sections": 3,
+    "n_chunks": 321,
+    "file": "0000909832-26-000029.json"
+  },
+  "0000320193-25-000079": {
+    "document_id": "0000320193-25-000079",
+    "doc_type": "10-K",
+    "date": "2025-10-31",
+    "source_type": "real",
+    "company": {
+      "ticker": "AAPL",
+      "cik": 320193,
+      "name": "Apple Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm",
+    "n_sections": 28,
+    "n_chunks": 698,
+    "file": "0000320193-25-000079.json"
+  },
+  "0000320193-26-000013": {
+    "document_id": "0000320193-26-000013",
+    "doc_type": "10-Q",
+    "date": "2026-05-01",
+    "source_type": "real",
+    "company": {
+      "ticker": "AAPL",
+      "cik": 320193,
+      "name": "Apple Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000013/aapl-20260328.htm",
+    "n_sections": 14,
+    "n_chunks": 312,
+    "file": "0000320193-26-000013.json"
+  },
+  "0000320193-26-000006": {
+    "document_id": "0000320193-26-000006",
+    "doc_type": "10-Q",
+    "date": "2026-01-30",
+    "source_type": "real",
+    "company": {
+      "ticker": "AAPL",
+      "cik": 320193,
+      "name": "Apple Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000006/aapl-20251227.htm",
+    "n_sections": 14,
+    "n_chunks": 272,
+    "file": "0000320193-26-000006.json"
+  },
+  "0001193125-26-277521": {
+    "document_id": "0001193125-26-277521",
+    "doc_type": "10-K",
+    "date": "2026-06-22",
+    "source_type": "real",
+    "company": {
+      "ticker": "ORCL",
+      "cik": 1341439,
+      "name": "ORACLE CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+    "n_sections": 23,
+    "n_chunks": 1281,
+    "file": "0001193125-26-277521.json"
+  },
+  "0001193125-26-101045": {
+    "document_id": "0001193125-26-101045",
+    "doc_type": "10-Q",
+    "date": "2026-03-11",
+    "source_type": "real",
+    "company": {
+      "ticker": "ORCL",
+      "cik": 1341439,
+      "name": "ORACLE CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+    "n_sections": 12,
+    "n_chunks": 577,
+    "file": "0001193125-26-101045.json"
+  },
+  "0001193125-25-315925": {
+    "document_id": "0001193125-25-315925",
+    "doc_type": "10-Q",
+    "date": "2025-12-11",
+    "source_type": "real",
+    "company": {
+      "ticker": "ORCL",
+      "cik": 1341439,
+      "name": "ORACLE CORP"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+    "n_sections": 12,
+    "n_chunks": 505,
+    "file": "0001193125-25-315925.json"
+  },
+  "0001652044-26-000018": {
+    "document_id": "0001652044-26-000018",
+    "doc_type": "10-K",
+    "date": "2026-02-05",
+    "source_type": "real",
+    "company": {
+      "ticker": "GOOGL",
+      "cik": 1652044,
+      "name": "Alphabet Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+    "n_sections": 28,
+    "n_chunks": 1311,
+    "file": "0001652044-26-000018.json"
+  },
+  "0001652044-26-000048": {
+    "document_id": "0001652044-26-000048",
+    "doc_type": "10-Q",
+    "date": "2026-04-30",
+    "source_type": "real",
+    "company": {
+      "ticker": "GOOGL",
+      "cik": 1652044,
+      "name": "Alphabet Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000048/goog-20260331.htm",
+    "n_sections": 12,
+    "n_chunks": 666,
+    "file": "0001652044-26-000048.json"
+  },
+  "0001652044-25-000091": {
+    "document_id": "0001652044-25-000091",
+    "doc_type": "10-Q",
+    "date": "2025-10-30",
+    "source_type": "real",
+    "company": {
+      "ticker": "GOOGL",
+      "cik": 1652044,
+      "name": "Alphabet Inc."
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000091/goog-20250930.htm",
+    "n_sections": 12,
+    "n_chunks": 686,
+    "file": "0001652044-25-000091.json"
+  },
+  "0001018724-26-000004": {
+    "document_id": "0001018724-26-000004",
+    "doc_type": "10-K",
+    "date": "2026-02-06",
+    "source_type": "real",
+    "company": {
+      "ticker": "AMZN",
+      "cik": 1018724,
+      "name": "AMAZON COM INC"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
+    "n_sections": 5,
+    "n_chunks": 1012,
+    "file": "0001018724-26-000004.json"
+  },
+  "0001018724-26-000014": {
+    "document_id": "0001018724-26-000014",
+    "doc_type": "10-Q",
+    "date": "2026-04-30",
+    "source_type": "real",
+    "company": {
+      "ticker": "AMZN",
+      "cik": 1018724,
+      "name": "AMAZON COM INC"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000014/amzn-20260331.htm",
+    "n_sections": 3,
+    "n_chunks": 616,
+    "file": "0001018724-26-000014.json"
+  },
+  "0001018724-25-000123": {
+    "document_id": "0001018724-25-000123",
+    "doc_type": "10-Q",
+    "date": "2025-10-31",
+    "source_type": "real",
+    "company": {
+      "ticker": "AMZN",
+      "cik": 1018724,
+      "name": "AMAZON COM INC"
+    },
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000123/amzn-20250930.htm",
+    "n_sections": 3,
+    "n_chunks": 609,
+    "file": "0001018724-25-000123.json"
+  }
+}

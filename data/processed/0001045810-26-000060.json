@@ -1,0 +1,411 @@
+{
+  "document_id": "0001045810-26-000060",
+  "doc_type": "8-K",
+  "date": "2026-07-02",
+  "period_of_report": "2026-06-28",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000060/nvda-20260628.htm",
+  "source_type": "real",
+  "raw_ref": "G:\\Coding\\Corporate Contradiction Detector\\data\\raw\\0001045810-26-000060.html",
+  "company": {
+    "ticker": "NVDA",
+    "cik": 1045810,
+    "name": "NVIDIA CORP"
+  },
+  "parsed_at": "2026-07-07T23:10:00.872889+00:00",
+  "sections": [
+    {
+      "section_id": "s000",
+      "ordinal": 0,
+      "heading": "",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000060#s000#p0",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 0,
+          "text": "UNITED STATES",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 13
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p1",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 1,
+          "text": "SECURITIES AND EXCHANGE COMMISSION",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p2",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 2,
+          "text": "WASHINGTON, DC 20549",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 20
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p3",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 3,
+          "text": "______________",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p4",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 4,
+          "text": "FORM 8-K",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 8
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p5",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 5,
+          "text": "CURRENT REPORT",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p6",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 6,
+          "text": "PURSUANT TO SECTION 13 OR 15(d) OF",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 34
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p7",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 7,
+          "text": "THE SECURITIES EXCHANGE ACT OF 1934",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 35
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p8",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 8,
+          "text": "Date of Report (Date of earliest event reported): June 28, 2026",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 63
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p9",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 9,
+          "text": "NVIDIA CORP ORATION",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 19
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p10",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 10,
+          "text": "(Exact name of registrant as specified in its charter)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 54
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p11",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 11,
+          "text": "Delaware | 0-23985 | 94-3177549\n(State or other jurisdiction | (Commission | (IRS Employer\nof incorporation) | File Number) | Identification No.)",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 145
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p12",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 12,
+          "text": "2788 San Tomas Expressway , Santa Clara , CA 95051",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 50
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p13",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 13,
+          "text": "(Address of principal executive offices) (Zip Code)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 51
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p14",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 14,
+          "text": "Registrant's telephone number, including area code: ( 408 ) 486-2000",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 68
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p15",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 15,
+          "text": "Not Applicable",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 14
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p16",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 16,
+          "text": "(Former name or former address, if changed since last report)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 61
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p17",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 17,
+          "text": "Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 171
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p18",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 18,
+          "text": "☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 87
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p19",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 19,
+          "text": "☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 88
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p20",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 20,
+          "text": "☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p21",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 21,
+          "text": "☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c))",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 104
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p22",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 22,
+          "text": "Securities registered pursuant to Section 12(b) of the Act:",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 59
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p23",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 23,
+          "text": "Title of each class | Trading Symbol(s) | Name of each exchange on which registered\nCommon Stock, $0.001 par value per share | NVDA | The Nasdaq Global Select Market",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 165
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p24",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 24,
+          "text": "Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter).",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 238
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p25",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 25,
+          "text": "Emerging Growth Company ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 25
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s000#p26",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s000",
+          "paragraph_index": 26,
+          "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 252
+        }
+      ]
+    },
+    {
+      "section_id": "s001",
+      "ordinal": 1,
+      "heading": "Item 5.02. Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers.",
+      "chunks": [
+        {
+          "chunk_id": "0001045810-26-000060#s001#p0",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 0,
+          "text": "Item 5.02. Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers.",
+          "chunk_type": "heading",
+          "is_heading": true,
+          "char_len": 157
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p1",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 1,
+          "text": "(b)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 3
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p2",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 2,
+          "text": "On June 28, 2026, Ajay K. Puri, Executive Vice President, Worldwide Field Operations of NVIDIA Corporation, or the Company, notified the Company of his intention to retire from his role effective upon the employment commencement date of his successor. Mr. Puri, a 21-year executive at NVIDIA, is expected to remain with the Company in a senior advisory role to ensure a seamless transition to his successor.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 407
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p3",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 3,
+          "text": "(c)",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 3
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p4",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 4,
+          "text": "On July 1, 2026, the Company appointed Nicholas Parker, age 55, as Executive Vice President, Worldwide Field Operations of the Company, effective upon the commencement of his employment with the Company, which is anticipated to be on August 24, 2026.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 250
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p5",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 5,
+          "text": "Mr. Parker will join the Company after 26 years at Microsoft Corporation and brings a combination of industry knowledge and business acumen as the Company works to extend its global leadership in AI infrastructure and expand the ecosystem. He most recently served as Executive Vice President and Chief Business Officer of Microsoft's Worldwide Sales & Solutions organization from 2025 to 2026, where he was responsible for operating the commercial business for enterprise, small and medium business and consumer customers. He also served as President, Industry & Partner Sales from 2022 to 2025, and Vice President, Global Partner Solutions from 2020 to 2022.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 659
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p6",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 6,
+          "text": "Mr. Parker's annual base salary will be $1,000,000 and he will receive a sign-on bonus of $5,000,000. He will be eligible to receive target annualized cash variable compensation of $1,500,000 pursuant to the Company's Fiscal 2027 Variable Compensation Plan, pro-rated for his time worked during fiscal year 2027. Mr. Parker will also receive two new hire equity grants consisting of (a) restricted stock units, or RSUs, with a target value of $35,000,000, vesting approximately over a four-year period according to the Company's standard new hire vesting schedule, and (b) multi-year performance-based RSUs, or MY PSUs, with a target value of $5,000,000, which will be eligible to vest based on the Company's total shareholder return relative to the Standard & Poor's 500 Composite Index over a three-year period. The terms of the RSUs and MY PSUs will be governed by the Company's Amended and Restated 2007 Equity Incentive Plan and applicable RSU and MY PSU agreements. Mr. Parker will be eligible to participate in the Company's benefit programs available to similarly situated employees.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 1091
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p7",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 7,
+          "text": "Mr. Parker will enter into the Company's indemnity agreement, which would require the Company to indemnify Mr. Parker, under the circumstances and to the extent provided for therein, against certain expenses and other amounts incurred by Mr. Parker as a result of being made a party to certain actions, suits, proceedings and the like by reason of his position as an officer of the Company.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 390
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p8",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 8,
+          "text": "SIGNATURE",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 9
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p9",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 9,
+          "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized.",
+          "chunk_type": "paragraph",
+          "is_heading": false,
+          "char_len": 183
+        },
+        {
+          "chunk_id": "0001045810-26-000060#s001#p10",
+          "document_id": "0001045810-26-000060",
+          "section_id": "s001",
+          "paragraph_index": 10,
+          "text": "NVIDIA Corporation\nDate: July 2, 2026 | By: /s/ Colette M. Kress\nColette M. Kress\nExecutive Vice President and Chief Financial Officer",
+          "chunk_type": "table",
+          "is_heading": false,
+          "char_len": 134
+        }
+      ]
+    }
+  ]
+}

@@ -6,10 +6,16 @@
 credentials/
 
 # --- Data (raw filings, parsed intermediate stores) ---
-data/raw/
-data/processed/
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+# data/processed/ (claims + per-document JSON) and data/raw/SYN-*.pdf are the
+# pre-loaded demo dataset the Dockerfile bakes into the image (see
+# api/citations.py, which reads these local files at request time, not the
+# DB). They MUST be git-tracked: a Cloud Build trigger clones from git, so
+# anything gitignored is silently absent from CI/CD-built images even though
+# a manual `gcloud run deploy --source .` (governed by .gcloudignore, which
+# reads local disk) would have included it. Only the bulky real-filing HTML
+# is excluded — real citations render from the processed JSON, not the raw
+# HTML, and it's regenerable via live processing.
+data/raw/*.html
 
 # --- Python ---
 __pycache__/
