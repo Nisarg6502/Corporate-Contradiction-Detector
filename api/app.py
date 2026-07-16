@@ -13,7 +13,9 @@ Endpoints:
 
 from __future__ import annotations
 
+import asyncio
 import sys
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -27,7 +29,30 @@ from api import citations, deps, jobs                      # noqa: E402
 from graph import queries                                  # noqa: E402
 from ingestion import company_universe                     # noqa: E402
 
-app = FastAPI(title="Corporate Contradiction Detector API", version="1.0")
+
+async def _warm_neo4j() -> None:
+    """Establish the first Neo4j connection in the background at container
+    startup instead of on a user's first request. On a cold Cloud Run
+    instance (--min-instances=0), that first connection/TLS handshake to
+    Neo4j Aura takes ~7s; every landing-page request (`/companies`,
+    `/company-search/*`) pays it if nothing warms the connection first. This
+    runs as a fire-and-forget task (not awaited by the lifespan startup
+    below) so it never delays the readiness probe or index.html — it just
+    overlaps with the time the browser spends downloading/parsing the JS
+    bundle instead of blocking the first data fetch."""
+    try:
+        await asyncio.to_thread(deps.neo4j().verify)
+    except Exception:
+        pass  # best-effort warmup; the real request will surface any real error
+
+
+@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    asyncio.create_task(_warm_neo4j())
+    yield
+
+
+app = FastAPI(title="Corporate Contradiction Detector API", version="1.0", lifespan=_lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"],
                    allow_headers=["*"])
 app.include_router(chat_router.router)

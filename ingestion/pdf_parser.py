@@ -15,9 +15,11 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-import fitz  # PyMuPDF
-
 from .models import Chunk, Document, Section
+
+# PyMuPDF is only needed for the synthetic-PDF path (citation viewer /
+# ingestion) — imported lazily in each function below so a cold Cloud Run
+# container doesn't pay this import cost to serve the plain browsing routes.
 
 _WS_RE = re.compile(r"\s+")
 # "Name, Role" header line (bold in the PDF). Name has no comma; role is short.
@@ -69,6 +71,7 @@ def _union(b1, bbox):
 def parse_pdf(pdf_path: str | Path, *, document_id: str, doc_type: str,
               date: str, company: dict, source_url: str = "",
               period_of_report: str | None = None) -> Document:
+    import fitz  # PyMuPDF
     pdf_path = Path(pdf_path)
     pdf = fitz.open(str(pdf_path))
 
@@ -129,6 +132,7 @@ def parse_pdf(pdf_path: str | Path, *, document_id: str, doc_type: str,
 def render_page_png(pdf_path: str | Path, page_number: int, *, dpi: int = 150,
                     save_path: str | Path | None = None) -> bytes:
     """Render a 1-based page to PNG bytes (and optionally save to disk)."""
+    import fitz  # PyMuPDF
     pdf = fitz.open(_resolve_pdf(pdf_path))
     pix = pdf[page_number - 1].get_pixmap(dpi=dpi)
     data = pix.tobytes("png")
@@ -145,6 +149,7 @@ def find_highlight_rects(pdf_path: str | Path, page_number: int,
     Text spanning a line break yields one rect per line. Used by the citation
     viewer to overlay highlights.
     """
+    import fitz  # PyMuPDF
     pdf = fitz.open(_resolve_pdf(pdf_path))
     rects = pdf[page_number - 1].search_for(_norm(quote))
     pdf.close()

@@ -18,12 +18,15 @@ from typing import AsyncIterator
 
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
-from langchain_core.messages import HumanMessage
 from pydantic import BaseModel
 
 from api import deps
-from chatbot import guardrails, sessions, suggestions, summary
 from observability import obs
+
+# langgraph/langchain_ollama (via chatbot.*) are heavy imports only the chat
+# endpoints need — deferred into each handler below so a cold Cloud Run
+# container doesn't pay that import cost just to serve landing/browsing
+# routes, which never touch this router's handlers.
 
 router = APIRouter()
 
@@ -52,6 +55,7 @@ def _require_processed(ticker: str) -> str:
 
 
 async def _sse_chat_stream(session: dict, message: str) -> AsyncIterator[str]:
+    from langchain_core.messages import HumanMessage
     graph = session["graph"]
     session_id = session["session_id"]
     ticker = session["ticker"]
@@ -118,6 +122,7 @@ async def _sse_chat_stream(session: dict, message: str) -> AsyncIterator[str]:
 
 @router.post("/companies/{ticker}/chat")
 async def chat(ticker: str, body: ChatRequest):
+    from chatbot import sessions
     ticker = _require_processed(ticker)
     if len(body.message) > _MAX_MESSAGE_CHARS:
         raise HTTPException(400, "message too long")
@@ -138,6 +143,7 @@ async def chat(ticker: str, body: ChatRequest):
 
 @router.get("/companies/{ticker}/chat/suggestions")
 def chat_suggestions(ticker: str):
+    from chatbot import suggestions
     ticker = _require_processed(ticker)
     return {"questions": suggestions.suggested_questions(ticker)}
 
@@ -147,6 +153,7 @@ def chat_followups(ticker: str, body: FollowupRequest):
     """Contextual follow-up questions for the just-finished turn. Called after
     the answer has streamed, so it never delays the answer. Best-effort — an
     empty list is a fine result, the UI just shows no chips."""
+    from chatbot import suggestions
     ticker = _require_processed(ticker)
     company_name = deps.company_name(ticker) or ticker
     questions = suggestions.followup_questions(ticker, company_name, body.question, body.answer)
@@ -155,6 +162,7 @@ def chat_followups(ticker: str, body: FollowupRequest):
 
 @router.get("/companies/{ticker}/summary")
 async def company_summary(ticker: str):
+    from chatbot import guardrails, summary
     ticker = _require_processed(ticker)
     company_name = deps.company_name(ticker) or ticker
 
