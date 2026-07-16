@@ -7,6 +7,8 @@
 ![Qdrant](https://img.shields.io/badge/vectors-Qdrant-DC244C)
 ![tests](https://img.shields.io/badge/tests-63%20passing-3f7d54)
 
+**Live demo:** [counterpoint-api-492843842669.us-central1.run.app](https://counterpoint-api-492843842669.us-central1.run.app) — deployed free on GCP Cloud Run (see [Deploy](#deploy-gcp-free-tier) below).
+
 Ingests a company's public SEC filings (10-K / 10-Q / 8-K), extracts every factual
 and strategic claim made by named speakers, builds a knowledge graph of those claims,
 detects **contradictions across time** (graph traversal + LLM judgment), and surfaces
