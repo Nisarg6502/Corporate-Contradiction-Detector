@@ -30,6 +30,10 @@ from graph import queries                                  # noqa: E402
 from ingestion import company_universe                     # noqa: E402
 
 
+def _warm_neo4j_sync() -> None:
+    deps.neo4j().verify()
+
+
 async def _warm_neo4j() -> None:
     """Establish the first Neo4j connection in the background at container
     startup instead of on a user's first request. On a cold Cloud Run
@@ -39,9 +43,18 @@ async def _warm_neo4j() -> None:
     runs as a fire-and-forget task (not awaited by the lifespan startup
     below) so it never delays the readiness probe or index.html — it just
     overlaps with the time the browser spends downloading/parsing the JS
-    bundle instead of blocking the first data fetch."""
+    bundle instead of blocking the first data fetch.
+
+    IMPORTANT: both `deps.neo4j()` (driver construction, which does routing-
+    table discovery over the network for a `neo4j+s://` URI) AND `.verify()`
+    must run inside the thread. `asyncio.to_thread(deps.neo4j().verify)`
+    looks equivalent but isn't: Python evaluates `deps.neo4j().verify` — i.e.
+    constructs the driver — *before* calling `to_thread`, so that eager
+    evaluation happens synchronously on the main event loop, blocking
+    everything else (this was measured adding ~5.65s to Starlette's lifespan
+    startup, wiping out the whole point of doing this in the background)."""
     try:
-        await asyncio.to_thread(deps.neo4j().verify)
+        await asyncio.to_thread(_warm_neo4j_sync)
     except Exception:
         pass  # best-effort warmup; the real request will surface any real error
 
