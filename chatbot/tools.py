@@ -16,10 +16,33 @@ retrieval layer verbatim — no new queries beyond `list_speakers` and the
 
 from __future__ import annotations
 
+import logging
+import re
+
 from langchain_core.tools import tool
 
 from api import citations, deps
 from graph import queries
+
+log = logging.getLogger(__name__)
+
+# Tokens dropped before the keyword fallback runs — without this, a question
+# like "what did they say about China" matches nearly every claim on "what",
+# "did", "they", "about", drowning the one term that carries meaning.
+_STOPWORDS = frozenset("""
+a about all also an and any anything are as at be been but by can did do does
+everything for from had has have how i if in into is it its me my no not of on
+or our say said says she so some something than that the their them then there
+these they this was we were what when where which who why will with would you
+your
+""".split())
+_WORD_RE = re.compile(r"[a-z0-9']+")
+
+
+def _keywords(query: str) -> list[str]:
+    """Lowercase content words from a query, for the Qdrant-down fallback."""
+    words = _WORD_RE.findall(query.lower())
+    return [w for w in words if len(w) > 2 and w not in _STOPWORDS]
 
 _SPEAKERS_FOR_TICKER = """
 MATCH (co:Company {ticker: $ticker})<-[:FILED_BY]-(:Document)<-[:APPEARS_IN]-(c:Claim)
@@ -36,6 +59,19 @@ RETURN count(c) > 0 AS ok
 
 def _source_tag(source_type: str) -> str:
     return "SYNTHETIC DEMO DATA" if source_type == "synthetic" else "real filing"
+
+
+def _format_hits(hits: list[dict]) -> str:
+    """Render search hits for the model. Shared by the vector and keyword paths,
+    which return the same field names on purpose."""
+    if not hits:
+        return "No matching claims found."
+    return "\n".join(
+        f"[{h['claim_id']}] {h['date']} — {h['speaker']} "
+        f"[{_source_tag(h['source_type'])}] (topic: {h['topic']}): "
+        f"\"{h['quote_span']}\""
+        for h in hits
+    )
 
 
 def make_tools(ticker: str) -> list:
@@ -120,19 +156,40 @@ def make_tools(ticker: str) -> list:
         """Search this company's claims by meaning, not just keywords. Use this
         when the question doesn't map cleanly to one topic id, e.g. 'what did
         they say about China' or 'anything about layoffs'."""
-        from vector import embedder, qdrant_store
-        vec = embedder.embed_one(query)
-        coll = deps.cfg().qdrant["claim_collection"]
-        hits = qdrant_store.search(deps.qdrant(), coll, vec, limit=limit, ticker=ticker)
+        # Vector search is best-effort: Qdrant is an external cluster that can
+        # be suspended (free tier) or unreachable, and there is no reason a
+        # dead dependency should fail the whole turn when the graph can still
+        # answer — imperfectly — from the same claims. Any failure falls
+        # through to the keyword path below. The exception is caught broadly on
+        # purpose: qdrant-client surfaces connection trouble as several
+        # unrelated types, and every one of them means the same thing here.
+        try:
+            from vector import embedder, qdrant_store
+            vec = embedder.embed_one(query)
+            coll = deps.cfg().qdrant["claim_collection"]
+            hits = qdrant_store.search(deps.qdrant(), coll, vec, limit=limit,
+                                       ticker=ticker)
+            return _format_hits(hits), hits
+        except Exception:
+            # Logged with the traceback so a suspended cluster is visible in
+            # Cloud Run logs rather than silently degrading forever.
+            log.warning("semantic_search: vector backend unavailable for %s, "
+                        "falling back to graph keyword search", ticker,
+                        exc_info=True)
+
+        terms = _keywords(query)
+        if not terms:
+            return "No matching claims found.", []
+        hits = [dict(r) for r in deps.neo4j().run(
+            queries.CLAIMS_KEYWORD_SEARCH, ticker=ticker, terms=terms, limit=limit)]
         if not hits:
             return "No matching claims found.", []
-        lines = [
-            f"[{h['claim_id']}] {h['date']} — {h['speaker']} "
-            f"[{_source_tag(h['source_type'])}] (topic: {h['topic']}): "
-            f"\"{h['quote_span']}\""
-            for h in hits
-        ]
-        return "\n".join(lines), hits
+        # The model is told the results are degraded so it doesn't present a
+        # keyword match with the same confidence as a semantic one. The reason
+        # (a broken dependency) is deliberately not exposed — it would leak
+        # infrastructure detail into a user-facing answer.
+        return ("Note: semantic search is unavailable; these are keyword matches "
+                "and may be incomplete.\n" + _format_hits(hits)), hits
 
     @tool(response_format="content_and_artifact")
     def get_citation(claim_id: str) -> tuple[str, list[dict]]:

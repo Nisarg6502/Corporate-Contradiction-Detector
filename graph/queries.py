@@ -41,6 +41,28 @@ RETURN t.id AS topic, t.name AS topic_name, r.severity AS severity,
 ORDER BY CASE r.severity WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END, topic
 """
 
+# Keyword fallback for `semantic_search` when Qdrant is unreachable (suspended
+# free-tier cluster, network failure). Deliberately crude: scores a claim by how
+# many of the caller's terms appear in its quote, claim text, or topic name, and
+# ranks by that count. This is materially worse than vector search — it can't
+# match "layoffs" to "workforce reduction" — but a degraded grounded answer
+# beats a failed turn. Returns the same field names as `qdrant_store.search`
+# so the tool's formatting path is shared.
+CLAIMS_KEYWORD_SEARCH = """
+MATCH (co:Company {ticker: $ticker})<-[:FILED_BY]-(:Document)<-[:APPEARS_IN]-(c:Claim)
+      -[:ABOUT]->(t:Topic)
+MATCH (s:Speaker)-[:MADE]->(c)
+WITH c, t, s, [w IN $terms WHERE toLower(c.quote_span) CONTAINS w
+               OR toLower(c.text) CONTAINS w
+               OR toLower(t.name) CONTAINS w] AS matched
+WHERE size(matched) > 0
+RETURN c.claim_id AS claim_id, c.date AS date, s.name AS speaker,
+       c.source_type AS source_type, t.id AS topic, c.quote_span AS quote_span,
+       size(matched) AS score
+ORDER BY score DESC, date DESC
+LIMIT $limit
+"""
+
 TOPICS_WITH_COUNTS = """
 MATCH (co:Company {ticker: $ticker})<-[:FILED_BY]-(:Document)<-[:APPEARS_IN]-(c:Claim)
       -[:ABOUT]->(t:Topic)

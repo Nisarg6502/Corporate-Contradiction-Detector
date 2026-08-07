@@ -139,6 +139,66 @@ def test_semantic_search_filters_qdrant_by_ticker(monkeypatch):
     assert "[x1]" in msg.content
 
 
+def _break_qdrant(monkeypatch):
+    """Make the vector path raise, as a suspended Qdrant cluster does."""
+    import vector.embedder as embedder_mod
+
+    def boom(text):
+        raise ConnectionError("cluster suspended")
+
+    monkeypatch.setattr(embedder_mod, "embed_one", boom)
+
+
+def test_semantic_search_falls_back_to_graph_when_qdrant_is_down(monkeypatch):
+    _break_qdrant(monkeypatch)
+    fake = _FakeNeo4j([{"claim_id": "g1", "date": "2026-01-01", "speaker": "Company",
+                        "source_type": "real", "topic": "china", "quote_span": "q",
+                        "score": 2}])
+    monkeypatch.setattr(deps, "neo4j", lambda: fake)
+
+    tool = next(t for t in make_tools("NVDA") if t.name == "semantic_search")
+    msg = _tool_call(tool, {"query": "China exposure"})
+
+    # Degraded, but still a grounded, citable answer rather than a failed turn.
+    assert "[g1]" in msg.content
+    assert "keyword matches" in msg.content
+    assert msg.artifact[0]["claim_id"] == "g1"
+
+
+def test_semantic_search_fallback_keeps_the_ticker_lock(monkeypatch):
+    _break_qdrant(monkeypatch)
+    fake = _FakeNeo4j([])
+    monkeypatch.setattr(deps, "neo4j", lambda: fake)
+
+    tool = next(t for t in make_tools("NVDA") if t.name == "semantic_search")
+    _tool_call(tool, {"query": "China exposure"})
+
+    # The fallback must not become a hole in the primary guardrail.
+    assert fake.calls[0][1]["ticker"] == "NVDA"
+
+
+def test_semantic_search_fallback_does_not_leak_infrastructure_detail(monkeypatch):
+    _break_qdrant(monkeypatch)
+    monkeypatch.setattr(deps, "neo4j", lambda: _FakeNeo4j([]))
+
+    tool = next(t for t in make_tools("NVDA") if t.name == "semantic_search")
+    msg = _tool_call(tool, {"query": "China exposure"})
+
+    lowered = msg.content.lower()
+    assert "qdrant" not in lowered and "suspended" not in lowered
+
+
+def test_keyword_extraction_drops_stopwords_and_short_tokens():
+    from chatbot.tools import _keywords
+
+    assert _keywords("what did they say about China") == ["china"]
+    assert _keywords("anything about layoffs?") == ["layoffs"]
+    # An all-stopword query yields nothing, which the tool treats as no match
+    # rather than sending an empty term list to Neo4j (which matches nothing
+    # anyway, but costs a round trip).
+    assert _keywords("what did they say?") == []
+
+
 # ---------------------------------------------------------------------------
 # Input guardrail
 # ---------------------------------------------------------------------------
