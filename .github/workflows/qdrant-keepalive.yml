@@ -1,0 +1,70 @@
+# Keeps the Qdrant Cloud free-tier cluster from being suspended for inactivity.
+#
+# Why this exists as a workflow rather than something inside the app: the API
+# runs on Cloud Run with --min-instances=0, so when nobody is using the demo
+# there is no container alive to ping anything. The keep-alive has to come from
+# outside the app.
+#
+# Setup: add QDRANT_URL and QDRANT_API_KEY as repository secrets
+# (Settings -> Secrets and variables -> Actions).
+#
+# Caveats worth knowing:
+#   - GitHub disables scheduled workflows in repos with no activity for 60 days
+#     (it emails first). If the repo goes quiet, this stops silently.
+#   - Free-tier cron is best-effort and can drift by up to ~an hour, which is
+#     why this runs every 2 days rather than at the edge of the suspension
+#     window.
+# This is a stopgap. The durable fixes are a paid cluster or folding the
+# embeddings into the Neo4j vector index we already run.
+
+name: Qdrant keep-alive
+
+on:
+  schedule:
+    - cron: "17 6 */2 * *"   # every 2 days, 06:17 UTC (off-peak minute)
+  workflow_dispatch:          # allow a manual run to verify the secrets work
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Qdrant
+        env:
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${QDRANT_URL:-}" ] || [ -z "${QDRANT_API_KEY:-}" ]; then
+            echo "::error::QDRANT_URL or QDRANT_API_KEY secret is not set."
+            exit 1
+          fi
+
+          url="${QDRANT_URL%/}/collections"
+
+          # --retry covers a cluster that is waking rather than truly down; the
+          # response body is printed so a failure shows *why* in the run log.
+          code=$(curl --silent --show-error --location \
+                      --retry 3 --retry-delay 20 --retry-all-errors \
+                      --max-time 45 \
+                      --header "api-key: ${QDRANT_API_KEY}" \
+                      --write-out '%{http_code}' \
+                      --output response.json \
+                      "$url") || {
+            echo "::error::Could not reach Qdrant at ${url%/collections} - the cluster is likely suspended or deleted. Check https://cloud.qdrant.io"
+            exit 1
+          }
+
+          echo "HTTP $code"
+          cat response.json
+          echo
+
+          if [ "$code" != "200" ]; then
+            echo "::error::Qdrant returned HTTP $code (expected 200)."
+            exit 1
+          fi
+
+          echo "Qdrant cluster is awake."
